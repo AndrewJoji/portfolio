@@ -1,0 +1,36 @@
+name: Claude Auto Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude Code Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          direct_prompt: |
+            Review this pull request for a Next.js (App Router) + TypeScript (strict) + Tailwind CSS v4
+            portfolio site. Follow the standards in CLAUDE.md.
+
+            Focus on:
+            - Correctness bugs and broken UI states
+            - Type safety (no unnecessary `any`, proper strict-mode usage)
+            - Accessibility (semantic HTML, alt text, keyboard/focus handling)
+            - Unnecessary complexity, dead code, or dependencies that aren't needed
+            - Consistency with existing component and styling conventions in the repo
+
+            Keep feedback concise and actionable. Do not nitpick formatting that a linter
+            would already catch.
