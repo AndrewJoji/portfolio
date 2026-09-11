@@ -54,6 +54,116 @@ export const projects: ProjectEntry[] = [
         diagram: "ebay-pipeline",
       },
       {
+        paragraphs: [],
+        dataSnapshot: {
+          heading: "Live Data Snapshot",
+          intro:
+            "A real run of the normalization layer — one piece of the wider pipeline built during this co-op — against two live supplier exports: premiumlistallsystems.csv (QuickFlips) and catrp_buylist_091126.csv (CATRP), ingested Sep 11, 2026, before pricing logic runs on top.",
+          schemaComparison: [
+            { field: "Title", quickFlips: "Title", catrp: "Title" },
+            {
+              field: "Platform/Category",
+              quickFlips: "Platform (flat)",
+              catrp: "Category + Subcategory (split)",
+            },
+            {
+              field: "Condition tiers",
+              quickFlips: "New / Complete / MM / Loose",
+              catrp: "New / CIB / CIB(Excellent) / CIB(Average) / CIB(Poor) / No Manual / Loose",
+            },
+            {
+              field: "Price format",
+              quickFlips: "$18.00 (dollar sign)",
+              catrp: "18.00 (plain float or -- for N/A)",
+            },
+            { field: "UPC", quickFlips: "Yes", catrp: "No" },
+          ],
+          stats: [
+            { source: "QuickFlips", skus: "2,899", categories: "43", date: "Sep 11, 2026" },
+            { source: "CATRP", skus: "34,516", categories: "40", date: "Sep 11, 2026" },
+            { source: "Overlap (title match)", skus: "1,111 items", categories: "—", date: "—" },
+          ],
+          priceComparison: [
+            {
+              item: "Chrono Trigger",
+              platform: "SNES",
+              qfPrice: "$150.00",
+              catrpPrice: "$37.50",
+              delta: "QF +$112.50",
+            },
+            {
+              item: "Pokemon Platinum",
+              platform: "Nintendo DS",
+              qfPrice: "$117.00",
+              catrpPrice: "$86.11",
+              delta: "QF +$30.89",
+            },
+            {
+              item: "Kid Dracula",
+              platform: "Gameboy",
+              qfPrice: "$140.00",
+              catrpPrice: "$100.79",
+              delta: "QF +$39.21",
+            },
+            {
+              item: "Super Mario RPG",
+              platform: "SNES",
+              qfPrice: "$37.00",
+              catrpPrice: "$11.31",
+              delta: "QF +$25.69",
+            },
+            {
+              item: "Silent Hill 3",
+              platform: "PS2",
+              qfPrice: "$50.00",
+              catrpPrice: "$50.73",
+              delta: "~Equal",
+            },
+            {
+              item: "Miitopia",
+              platform: "Nintendo Switch",
+              qfPrice: "$15.00",
+              catrpPrice: "$15.99",
+              delta: "~Equal",
+            },
+            {
+              item: "Super Bowling",
+              platform: "Nintendo 64",
+              qfPrice: "$275.00",
+              catrpPrice: "$407.39",
+              delta: "CATRP +$132.39",
+            },
+            {
+              item: "Mega Man 5",
+              platform: "NES",
+              qfPrice: "$87.00",
+              catrpPrice: "$144.35",
+              delta: "CATRP +$57.35",
+            },
+            {
+              item: "Godzilla 2",
+              platform: "NES",
+              qfPrice: "$52.00",
+              catrpPrice: "$116.58",
+              delta: "CATRP +$64.58",
+            },
+            {
+              item: "Haunting Ground",
+              platform: "PS2",
+              qfPrice: "$100.00",
+              catrpPrice: "$132.75",
+              delta: "CATRP +$32.75",
+            },
+          ],
+          priceNote:
+            "Both sources priced in USD. Delta is a direct comparison — the pipeline normalizes price format (CATRP omits the dollar sign; QuickFlips includes it) before matching.",
+          insight:
+            "Of 1,111 matched items, QuickFlips offered a higher loose price on 706 (63%), CATRP on 375 (34%), with 30 equal — average delta $0.90 USD.",
+          coverageGap:
+            "1,549 items exist only in QuickFlips; 21,574 only in CATRP — the adapter layer prevents false negatives when a supplier drops or renames an item.",
+        },
+      },
+      {
         heading: "Closing the loop",
         paragraphs: [
           "Dashboards only help if you notice when something's actually broken. I built automated tracking and reporting in Python and Google Sheets to monitor account and pipeline KPIs, flagging where a workflow or conversion step was quietly failing before it became a real problem.",
