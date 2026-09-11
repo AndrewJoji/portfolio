@@ -28,3 +28,7 @@ export type StorySection = {
   properties?: StoryProperty[];
   link?: StoryLink;
 };
+
+export function firstStoryDiagram(story?: StorySection[]): StoryDiagramId | undefined {
+  return story?.find((section) => section.diagram)?.diagram;
+}
