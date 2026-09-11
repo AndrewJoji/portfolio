@@ -42,6 +42,7 @@ export default async function ExperiencePage(
             type: "youtube" as const,
             youtubeId: entry.video.youtubeId,
             title: entry.video.title,
+            start: entry.video.start,
           },
         ]
       : []),

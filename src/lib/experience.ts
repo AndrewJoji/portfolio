@@ -1,6 +1,7 @@
 export type ExperienceVideo = {
   title: string;
   youtubeId?: string;
+  start?: number;
 };
 
 export type ExperienceEntry = {
@@ -54,6 +55,11 @@ export const experience: ExperienceEntry[] = [
       "Manage the full customer lifecycle end to end, including buyer communication, dispute resolution, and post-sale follow-up, prioritizing fair pricing and long-term relationships over one-off wins.",
       "Conduct ongoing market research and competitive analysis to inform data-driven pricing and inventory decisions.",
     ],
+    video: {
+      title: "Wholesale batch shipped to CATRP Crew (US)",
+      youtubeId: "AmEmPiLSEQY",
+      start: 634,
+    },
   },
   {
     slug: "tech-volunteer-ewb",

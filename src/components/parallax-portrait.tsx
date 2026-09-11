@@ -3,8 +3,8 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
-const SCALE = 1.8;
-const ORIGIN = "50% 80%";
+const SCALE = 1.15;
+const ORIGIN = "50% 50%";
 const PARALLAX_FACTOR = 0.15;
 
 export function ParallaxPortrait({ src, alt }: { src: string; alt: string }) {

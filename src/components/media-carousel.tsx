@@ -47,7 +47,7 @@ export function MediaCarousel({ media }: { media: MediaItem[] }) {
       <div className="relative aspect-video overflow-hidden rounded-2xl bg-card">
         {current.type === "youtube" ? (
           <iframe
-            src={`https://www.youtube.com/embed/${current.youtubeId}`}
+            src={`https://www.youtube.com/embed/${current.youtubeId}${current.start ? `?start=${current.start}` : ""}`}
             title={current.title}
             className="h-full w-full"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
