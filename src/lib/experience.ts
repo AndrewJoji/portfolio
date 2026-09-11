@@ -80,7 +80,10 @@ export const experience: ExperienceEntry[] = [
       "Supported the UBC Bookstore's migration to new enterprise software and to Workday Student, providing first point of contact technical support and troubleshooting for non-technical staff.",
       "Managed a VDI migration for 20+ desktops and reduced high-level support requests by 40% through proactive stakeholder communication and thorough documentation maintained on Confluence.",
     ],
-    video: { title: "Programmer Analyst project walkthrough" },
+    video: {
+      title: "Programmer Analyst project walkthrough",
+      youtubeId: "TVAfr5lGLkY",
+    },
   },
   {
     slug: "vp-finance-administration",
@@ -92,7 +95,7 @@ export const experience: ExperienceEntry[] = [
       "Trained and mentored a team of 10 finance representatives and managed a $20,000+ budget.",
       "Directed and produced a documentary highlighting unsung heroes in student housing, presented to student leaders from institutions across Canada and the United States at the NACURH leadership conference.",
     ],
-    video: { title: "Unsung Heroes documentary" },
+    video: { title: "Unsung Heroes documentary", youtubeId: "USU7CitwfMo" },
   },
 ];
 
