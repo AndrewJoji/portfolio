@@ -4,8 +4,13 @@
 
 ## Stack
 - Next.js (App Router), TypeScript in strict mode, Tailwind CSS v4.
-- Deployed to Vercel via native GitHub integration (push to `main` = production deploy, PRs get preview deploys).
+- Deployed to Vercel via native GitHub integration. `main` is production (andrewjoji.com); `staging` is a persistent staging environment with its own stable Vercel preview URL (`portfolio-git-staging-andrewjojis-projects.vercel.app`); any other branch/PR gets its own ephemeral preview URL.
 - Package manager: npm.
+
+## Branching & deploy flow
+1. Feature branches off `staging`, PR into `staging`. Merging deploys to the persistent staging URL.
+2. Once verified on staging, open a promotion PR from `staging` into `main`. Merging that deploys to production.
+3. Don't push directly to `main` or `staging` — always go through a PR so CI and review run.
 
 ## Conventions
 - Prefer server components; only add `"use client"` where interactivity actually requires it.
