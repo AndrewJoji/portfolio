@@ -6,7 +6,7 @@ import { ReaderProvider } from "@/components/reader-context";
 import { ReadableText } from "@/components/readable-text";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
-import { StoryVideoBand } from "@/components/story-video-band";
+import { StoryBody } from "@/components/story-body";
 import { experience, getExperience } from "@/lib/experience";
 import { getLocalMedia } from "@/lib/local-media";
 import type { MediaItem } from "@/lib/media";
@@ -43,16 +43,6 @@ export default async function ExperiencePage(
   const localMedia = getLocalMedia("experience", slug);
   const audio = findAudio(`experience/${slug}`);
 
-  // Block indices must match the flattening order in
-  // scripts/generate-audio.mts exactly: per story section, heading (if
-  // present) then paragraphs, sections in order; or the bullets array
-  // directly when there's no story.
-  let nextBlockIndex = 0;
-  const sectionBlocks = entry.story?.map((section) => ({
-    headingIndex: section.heading !== undefined ? nextBlockIndex++ : undefined,
-    paragraphIndices: section.paragraphs.map(() => nextBlockIndex++),
-  }));
-
   const content = (
     <>
       <SiteNav />
@@ -74,40 +64,7 @@ export default async function ExperiencePage(
         ) : null}
 
         {entry.story ? (
-          <>
-            {entry.story.map((section, i) => (
-              <div key={i}>
-                {section.heading ? (
-                  <h2 className="mt-14 max-w-2xl font-serif text-2xl italic leading-snug sm:text-3xl">
-                    <ReadableText
-                      blockIndex={sectionBlocks![i].headingIndex!}
-                      fallback={section.heading}
-                    />
-                  </h2>
-                ) : null}
-                <div className="mt-6 flex max-w-2xl flex-col gap-4 text-lg leading-relaxed text-muted">
-                  {section.paragraphs.map((paragraph, j) => (
-                    <p key={j}>
-                      <ReadableText
-                        blockIndex={sectionBlocks![i].paragraphIndices[j]}
-                        fallback={paragraph}
-                      />
-                    </p>
-                  ))}
-                </div>
-                {section.video ? <StoryVideoBand video={section.video} /> : null}
-              </div>
-            ))}
-
-            {localMedia.length > 0 ? (
-              <div className="mt-4 max-w-2xl">
-                <div className="mb-3 text-xs font-medium tracking-[0.12em] text-muted uppercase">
-                  More from this role
-                </div>
-                <MediaCarousel media={localMedia} />
-              </div>
-            ) : null}
-          </>
+          <StoryBody story={entry.story} localMedia={localMedia} mediaLabel="More from this role" />
         ) : (
           <>
             <ul className="mt-10 flex max-w-2xl flex-col gap-4 text-lg leading-relaxed text-muted">

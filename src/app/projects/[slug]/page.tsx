@@ -6,6 +6,7 @@ import { ReaderProvider } from "@/components/reader-context";
 import { ReadableText } from "@/components/readable-text";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
+import { StoryBody } from "@/components/story-body";
 import { getLocalMedia } from "@/lib/local-media";
 import type { MediaItem } from "@/lib/media";
 import { getProject, projects } from "@/lib/projects";
@@ -60,16 +61,8 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
           </div>
         ) : null}
 
-        <ul className="mt-10 flex max-w-2xl flex-col gap-4 text-lg leading-relaxed text-muted">
-          {project.bullets.map((bullet, i) => (
-            <li key={bullet}>
-              <ReadableText blockIndex={i} fallback={bullet} />
-            </li>
-          ))}
-        </ul>
-
         {project.relatedExperienceSlug ? (
-          <div className="mt-8 max-w-2xl text-sm text-muted">
+          <div className="mt-6 max-w-2xl text-sm text-muted">
             Part of{" "}
             <Link
               href={`/experience/${project.relatedExperienceSlug}`}
@@ -80,29 +73,42 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
           </div>
         ) : null}
 
-        <div className="mt-12 max-w-2xl">
-          <div className="mb-3 text-xs font-medium tracking-[0.12em] text-muted uppercase">
-            Media
-          </div>
-          <MediaCarousel
-            media={
-              [
-                ...(project.video?.youtubeId
-                  ? [
-                      {
-                        type: "youtube" as const,
-                        youtubeId: project.video.youtubeId,
-                        title: project.video.title,
-                        start: project.video.start,
-                      },
-                    ]
-                  : []),
-                ...localMedia,
-              ] satisfies MediaItem[]
-            }
-            emptyHint={`[Add photos or videos to public/projects/${slug}]`}
-          />
-        </div>
+        {project.story ? (
+          <StoryBody story={project.story} localMedia={localMedia} mediaLabel="More from this project" />
+        ) : (
+          <>
+            <ul className="mt-10 flex max-w-2xl flex-col gap-4 text-lg leading-relaxed text-muted">
+              {project.bullets.map((bullet, i) => (
+                <li key={bullet}>
+                  <ReadableText blockIndex={i} fallback={bullet} />
+                </li>
+              ))}
+            </ul>
+            <div className="mt-12 max-w-2xl">
+              <div className="mb-3 text-xs font-medium tracking-[0.12em] text-muted uppercase">
+                Media
+              </div>
+              <MediaCarousel
+                media={
+                  [
+                    ...(project.video?.youtubeId
+                      ? [
+                          {
+                            type: "youtube" as const,
+                            youtubeId: project.video.youtubeId,
+                            title: project.video.title,
+                            start: project.video.start,
+                          },
+                        ]
+                      : []),
+                    ...localMedia,
+                  ] satisfies MediaItem[]
+                }
+                emptyHint={`[Add photos or videos to public/projects/${slug}]`}
+              />
+            </div>
+          </>
+        )}
       </article>
       <SiteFooter />
     </>

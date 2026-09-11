@@ -1,8 +1,7 @@
-export type ProjectVideo = {
-  title: string;
-  youtubeId?: string;
-  start?: number;
-};
+import type { StorySection, StoryVideo } from "@/lib/story";
+
+export type ProjectVideo = StoryVideo;
+export type { StorySection };
 
 export type ProjectEntry = {
   slug: string;
@@ -14,6 +13,7 @@ export type ProjectEntry = {
   tint: string;
   bullets: string[];
   video?: ProjectVideo;
+  story?: StorySection[];
   relatedExperienceSlug?: string;
 };
 
@@ -37,6 +37,120 @@ export const projects: ProjectEntry[] = [
       "Analyzed buyer feedback and sales data to identify friction points in the customer journey and implemented process improvements that increased repeat customer rate.",
       "Planned extensibility for release as a SaaS platform, enabling broader adoption with integrations for inventory management, pricing workflows, and data-driven insights.",
     ],
+    story: [
+      {
+        heading: "The problem",
+        paragraphs: [
+          "Once I was working with multiple wholesale buyers at once, deciding where a given batch of inventory should go became a real analytical problem, not a gut call. Every supplier's data showed up differently — inconsistent CSV exports, different category names, different currencies — and comparing offers by hand didn't scale past a handful of listings.",
+          "I built this as my UBC Entrepreneurship Co-op placement, operating my own registered business as the co-op itself: half reselling operations, half technical automation and consulting work on the systems behind it.",
+        ],
+      },
+      {
+        heading: "The pipeline",
+        paragraphs: [
+          "Supplier exports and eBay's own API both feed into one normalized layer. Supplier-specific adapters handle the inconsistent formats — standardizing naming, merging product variants — before anything lands in PostgreSQL via Prisma. On the eBay side, listing, order, and inventory data sync in the same way, so the internal tools are always working off current state instead of a stale export.",
+          "That shared data powers a Next.js dashboard with pagination, category filters, real-time currency conversion, and competitive offer detection — the actual decision-making surface I used every week to figure out where inventory should go.",
+        ],
+        diagram: "ebay-pipeline",
+      },
+      {
+        heading: "Closing the loop",
+        paragraphs: [
+          "Dashboards only help if you notice when something's actually broken. I built automated tracking and reporting in Python and Google Sheets to monitor account and pipeline KPIs, flagging where a workflow or conversion step was quietly failing before it became a real problem.",
+          "I also went back through buyer feedback and sales data to find friction points in the customer journey — where a listing was clear but a follow-up wasn't, mostly — and fed what I found back into pricing and sourcing decisions. That loop is what actually moved the repeat customer rate, not any single feature.",
+        ],
+        diagram: "ebay-funnel",
+      },
+      {
+        heading: "Where it's headed",
+        paragraphs: [
+          "The system was built with more than just my own business in mind — clean adapter boundaries, a normalized schema, and enough separation between the pricing engine and the eBay integration that it could plausibly grow into a small SaaS tool for other resellers running the same wholesale-comparison problem.",
+        ],
+      },
+    ],
+    relatedExperienceSlug: "founder-operator-itsworthit",
+  },
+  {
+    slug: "ebay-listing-assistant",
+    title: "eBay Listing Assistant",
+    org: "itsWorthIt Solutions",
+    years: "2026 – Present",
+    summary:
+      "An AI-orchestrated pipeline that turns raw phone photos into a reviewable eBay draft listing — computer vision, PriceCharting pricing, and a hard stop before anything goes live.",
+    tags: "Claude · eBay API · Computer Vision",
+    tint: "oklch(84% 0.05 80)",
+    bullets: [
+      "Built an end-to-end AI-orchestrated pipeline that turns raw phone photos into a ready-to-review eBay draft listing, without touching eBay's UI.",
+      "Grouped and sorted photos by EXIF timestamp, splitting per-item using a spacer-photo convention shot between items.",
+      "Used computer vision to read box art, cartridge labels, disc printing, and barcodes to identify title, platform, region, and edition, with barcodes taking precedence for disambiguation.",
+      "Priced each item via PriceCharting's quoted values rather than averaging raw sold comps, converted to CAD, with thin or inconsistent comp sets flagged for manual review.",
+      "Assembled HTML descriptions from a fixed boilerplate plus condition-specific templates, keeping eBay's separate Condition Details field distinct from the listing body.",
+      "Sequenced the eBay Inventory, Media, and Account APIs — OAuth, photo upload, inventory item, draft offer — with a hard stop before publish: listings only go live on my explicit per-item approval.",
+    ],
+    story: [
+      {
+        heading: "The problem",
+        paragraphs: [
+          "Manually listing on eBay is a lot of repetitive work per item — photographing it, tracking down an accurate price, writing a description, uploading photos, and filling in item specifics, all before a single listing goes live. I built an AI-orchestrated pipeline, running inside a Claude Project, that handles everything except the final go-ahead to publish.",
+        ],
+      },
+      {
+        heading: "How it works",
+        paragraphs: [
+          "I shoot photos in one session, with a spacer photo — my hand, or a blank card — between items. The pipeline sorts by EXIF timestamp and splits on those spacers to reconstruct per-item groups automatically, then reads box art, cartridge labels, disc printing, and barcodes to identify title, platform, region, and edition — barcodes win over label text whenever they disagree. From there it assesses condition (complete-in-box, loose, sealed, and so on) and moves on to pricing and drafting the listing.",
+        ],
+        images: [
+          {
+            type: "image",
+            src: "/projects/ebay-listing-assistant/01-item photo - 007 Agent Under Fire.jpg",
+            alt: "Item photo group: 007 Agent Under Fire case and manual",
+          },
+          {
+            type: "image",
+            src: "/projects/ebay-listing-assistant/02-spacer photo between items.jpg",
+            alt: "Spacer photo shot between items to split the session",
+          },
+          {
+            type: "image",
+            src: "/projects/ebay-listing-assistant/03-item photo - Rygar.jpg",
+            alt: "Item photo group: Rygar case and manual",
+          },
+        ],
+        imagesAspectRatio: "3 / 4",
+        diagram: "listing-pipeline",
+      },
+      {
+        heading: "Pricing it right",
+        paragraphs: [
+          "Pricing comes from PriceCharting's quoted value rather than averaging raw sold listings — a single quoted price holds up better against outliers than a handful of scattered comps. Items missing a manual get priced at the midpoint between loose and complete. Everything converts to CAD, and if the comp data is thin or inconsistent, the pipeline flags it for me instead of guessing.",
+        ],
+        images: [
+          {
+            type: "image",
+            src: "/projects/ebay-listing-assistant/04-pricecharting-007-agent-under-fire.png",
+            alt: "PriceCharting page for 007: Agent Under Fire (PS2), showing quoted prices by condition",
+          },
+        ],
+        properties: [
+          { key: "title", value: "007: Agent Under Fire" },
+          { key: "platform", value: "PlayStation 2" },
+          { key: "edition", value: "Greatest Hits" },
+          { key: "region", value: "NTSC-U/C" },
+          { key: "condition_tier", value: "CIB (complete-in-box)" },
+          { key: "id_signal", value: "barcode + box art match" },
+          { key: "price_source", value: "PriceCharting -> Complete price" },
+          { key: "price_usd", value: "$8.18" },
+          { key: "price_cad", value: "~$11.29 (converted)" },
+          { key: "category", value: "Video Games & Consoles > Video Games" },
+        ],
+      },
+      {
+        heading: "Built to never publish blind",
+        paragraphs: [
+          "The eBay side runs the real Inventory, Media, and Account APIs — OAuth token refresh, photo upload, inventory item creation, then a draft offer — but it stops there on purpose. I get a review summary with title, condition, price, and a link to the draft, and nothing goes live until I approve that specific listing. SKUs are generated deterministically, so re-running the pipeline on the same item never creates a duplicate.",
+        ],
+      },
+    ],
     relatedExperienceSlug: "founder-operator-itsworthit",
   },
   {
@@ -55,6 +169,26 @@ export const projects: ProjectEntry[] = [
       "Integrated a Vertex AI generative chatbot for incident trend analysis, improving query response efficiency by 25%.",
       "Presented project progress and the business case directly to senior stakeholders, translating technical work into terms a business audience could act on.",
     ],
+    story: [
+      {
+        heading: "The brief",
+        paragraphs: [
+          "Built for a real client — PricewaterhouseCoopers — through UBC's CPSC 319 software engineering project course. The ask was a Health and Safety incident system frontline teams could actually use to log, track, and understand safety incidents, delivered by an 8-person student team on a hard course deadline.",
+        ],
+      },
+      {
+        heading: "Architecture",
+        paragraphs: [
+          "Full-stack on Google Cloud: Next.js on the front end, Firestore as the NoSQL data layer, and Cloud Run for serverless hosting. Serverless and NoSQL were the right call for a student team working against a fixed deadline — infrastructure we didn't have to manage ourselves, and a data model flexible enough to change as we learned more about how incidents actually get reported.",
+        ],
+      },
+      {
+        heading: "The AI layer",
+        paragraphs: [
+          "The feature that pushed the prototype past a standard CRUD app was a generative AI chatbot built on Vertex AI, layered over the incident data for trend analysis in plain language instead of manual filtering. It cut query response time by about 25% — the kind of improvement that matters most when someone's trying to catch a pattern before it becomes a bigger problem.",
+        ],
+      },
+    ],
     relatedExperienceSlug: "software-developer-extern-pwc",
   },
   {
@@ -70,6 +204,31 @@ export const projects: ProjectEntry[] = [
       "Manage a $12,000 production budget and negotiate 10+ vendor and location contracts, tracking spend against forecast.",
       "Coordinate a 20-person cast and crew across multiple shoot locations, keeping the project on schedule and on budget under tight deadlines.",
       "Build new outreach and follow-up relationships from scratch for each new location.",
+    ],
+    story: [
+      {
+        heading: "The film",
+        paragraphs: [
+          "The Sins of Our Father is a non-union independent feature written and directed by Tibet Karayazgan, shot in Vancouver over a summer of alternating weekends.",
+          "I came on as Line Producer, running the finance side of the production and picking up logistics — including shuttle runs and stepping into a couple of small day-player roles — wherever the shoot needed it.",
+        ],
+        quote: {
+          label: "Logline",
+          text: "When his estranged kids reject his final plea, a dying hustler uses an enigmatic device to force his way back into their lives — triggering a chain reaction that forces him to confront a lifetime of guilt he's spent avoiding.",
+        },
+      },
+      {
+        heading: "Budgeting it",
+        paragraphs: [
+          "I tracked spend across every production department — art, camera and grip, sound, transportation, catering, locations and permits, film and lab — against a roughly $12,000 budget with a 10% contingency held in reserve. Production landed close to plan, which on an indie shoot with this many moving parts came down to catching overages early rather than after the fact.",
+        ],
+      },
+      {
+        heading: "Where it's headed",
+        paragraphs: [
+          "Production wrapped within budget. Post-production — editing, music, visual effects, sound, and final film and lab work — is next, and I'm currently leading fundraising to cover it as we prepare to pitch the finished film to distributors.",
+        ],
+      },
     ],
     relatedExperienceSlug: "line-producer",
   },
