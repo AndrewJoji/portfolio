@@ -30,10 +30,12 @@ export function MediaCarousel({
   media,
   emptyHint,
   aspectRatio = "16 / 9",
+  objectFit = "cover",
 }: {
   media: MediaItem[];
   emptyHint?: string;
   aspectRatio?: string;
+  objectFit?: "cover" | "contain";
 }) {
   const [index, setIndex] = useState(0);
 
@@ -69,7 +71,7 @@ export function MediaCarousel({
             key={current.src}
             src={current.src}
             controls
-            className="h-full w-full object-contain"
+            className={`h-full w-full ${objectFit === "contain" ? "object-contain" : "object-cover"}`}
           />
         ) : (
           <Image
@@ -78,7 +80,7 @@ export function MediaCarousel({
             alt={current.alt}
             fill
             sizes="(min-width: 672px) 672px, 100vw"
-            className="object-contain"
+            className={objectFit === "contain" ? "object-contain" : "object-cover"}
           />
         )}
 

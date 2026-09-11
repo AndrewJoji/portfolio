@@ -79,7 +79,11 @@ export function StoryBody({
           ) : null}
           {section.images && section.images.length > 0 ? (
             <div className="my-10 max-w-2xl">
-              <MediaCarousel media={section.images} aspectRatio={section.imagesAspectRatio} />
+              <MediaCarousel
+                media={section.images}
+                aspectRatio={section.imagesAspectRatio}
+                objectFit={section.imagesAspectRatio ? "contain" : "cover"}
+              />
             </div>
           ) : null}
           {section.properties ? <StoryProperties properties={section.properties} /> : null}
