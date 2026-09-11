@@ -1,4 +1,9 @@
+import Image from "next/image";
+import { findImage } from "@/lib/site-image";
+
 export function Hero() {
+  const portrait = findImage("home", "portrait");
+
   return (
     <section className="grid grid-cols-1 gap-8 px-8 py-14 sm:px-20 sm:py-20 lg:grid-cols-12 lg:items-center">
       <div className="lg:col-span-7">
@@ -30,8 +35,19 @@ export function Hero() {
         </div>
       </div>
       <div className="lg:col-span-5">
-        <div className="flex h-[340px] items-center justify-center rounded-3xl bg-gradient-to-br from-[oklch(85%_0.05_60)] to-[oklch(74%_0.08_42)] text-xs font-semibold tracking-wide text-background uppercase sm:h-[420px]">
-          [portrait photo]
+        <div className="relative flex h-[340px] items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-[oklch(85%_0.05_60)] to-[oklch(74%_0.08_42)] text-xs font-semibold tracking-wide text-background uppercase sm:h-[420px]">
+          {portrait ? (
+            <Image
+              src={portrait}
+              alt="Andrew Joji"
+              fill
+              sizes="(min-width: 1024px) 40vw, 90vw"
+              className="object-cover"
+              priority
+            />
+          ) : (
+            "[portrait photo]"
+          )}
         </div>
       </div>
     </section>
