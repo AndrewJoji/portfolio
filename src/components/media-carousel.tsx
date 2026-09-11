@@ -29,15 +29,20 @@ function captionFor(item: MediaItem) {
 export function MediaCarousel({
   media,
   emptyHint,
+  aspectRatio = "16 / 9",
 }: {
   media: MediaItem[];
   emptyHint?: string;
+  aspectRatio?: string;
 }) {
   const [index, setIndex] = useState(0);
 
   if (media.length === 0) {
     return (
-      <div className="flex aspect-video items-center justify-center rounded-2xl bg-card text-sm text-muted">
+      <div
+        style={{ aspectRatio }}
+        className="flex items-center justify-center rounded-2xl bg-card text-sm text-muted"
+      >
         {emptyHint ?? "[Add photos or videos]"}
       </div>
     );
@@ -50,7 +55,7 @@ export function MediaCarousel({
 
   return (
     <div>
-      <div className="relative aspect-video overflow-hidden rounded-2xl bg-card">
+      <div style={{ aspectRatio }} className="relative overflow-hidden rounded-2xl bg-card">
         {current.type === "youtube" ? (
           <iframe
             src={`https://www.youtube.com/embed/${current.youtubeId}${current.start ? `?start=${current.start}` : ""}`}
@@ -64,7 +69,7 @@ export function MediaCarousel({
             key={current.src}
             src={current.src}
             controls
-            className="h-full w-full object-cover"
+            className="h-full w-full object-contain"
           />
         ) : (
           <Image
@@ -73,7 +78,7 @@ export function MediaCarousel({
             alt={current.alt}
             fill
             sizes="(min-width: 672px) 672px, 100vw"
-            className="object-cover"
+            className="object-contain"
           />
         )}
 

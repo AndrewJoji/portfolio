@@ -116,6 +116,7 @@ export const projects: ProjectEntry[] = [
             alt: "Item photo group: Rygar case and manual",
           },
         ],
+        imagesAspectRatio: "3 / 4",
         diagram: "listing-pipeline",
       },
       {

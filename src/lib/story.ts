@@ -21,6 +21,7 @@ export type StorySection = {
   video?: StoryVideo;
   diagram?: StoryDiagramId;
   images?: MediaItem[];
+  imagesAspectRatio?: string;
   quote?: StoryQuote;
   properties?: StoryProperty[];
 };
