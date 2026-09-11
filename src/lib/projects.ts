@@ -339,6 +339,172 @@ export const projects: ProjectEntry[] = [
           "Production wrapped within budget. Post-production — editing, music, visual effects, sound, and final film and lab work — is next, and I'm currently leading fundraising to cover it as we prepare to pitch the finished film to distributors.",
         ],
       },
+      {
+        paragraphs: [],
+        galleryHeading: "Behind the scenes",
+        gallery: [
+          {
+            src: "/projects/independent-feature-film/Clapboard.JPG",
+            alt: "Production slate for The Sins of Our Father: roll A001, scene 82, take 1, director Tibet Karayazgan",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/Main Camera Setup.JPG",
+            alt: "Main camera setup: Sony FX6 cinema rig on a tripod",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - 1st AC (Talon).JPG",
+            alt: "Talon, 1st Assistant Camera, on set",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - Andrei (Director of Photography), Jacob (1st AD).jpeg",
+            alt: "Andrei (Director of Photography) and Jacob (1st AD) on set",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - Andrew (Line Producer) vlogging BTS.JPG",
+            alt: "Andrew, Line Producer, vlogging behind the scenes",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - Angelina (Makeup Artist).JPG",
+            alt: "Angelina, Makeup Artist, on set",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - Cadiz (Sound Mixer).JPG",
+            alt: "Cadiz, Sound Mixer, on set",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - Cemetery Set Dec Andrew (Line Producer).jpeg",
+            alt: "Andrew, Line Producer, helping dress the cemetery set",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - Cemetery Set Dec Sierra (Production Design), Emma B. (Art Director).JPG",
+            alt: "Sierra (Production Design) and Emma B. (Art Director) dressing the cemetery set",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - Cozy makeshift greenroom Sierra (Production Design), Andrew (Line Producer), Emma (Co-Producer), Emma B. (Art Director).jpeg",
+            alt: "Sierra (Production Design), Andrew (Line Producer), Emma (Co-Producer), and Emma B. (Art Director) in the makeshift greenroom",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - Julian's (Sean) Move.jpeg",
+            alt: "Crew setting up for Julian's (Sean) moving-day scene",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - Julian's Move.jpeg",
+            alt: "Cast and crew packing boxes for the moving-day scene",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - Reviewing the framing (Andrew, Tibet, Sierra).JPG",
+            alt: "Andrew, Tibet, and Sierra reviewing the shot framing on set",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - Tanmay & Andrew Preparing Crew Lunch.JPG",
+            alt: "Tanmay and Andrew preparing lunch for the crew",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - Tibet (Director) writing on Clapboard.JPG",
+            alt: "Tibet, Director, marking up the clapboard between takes",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - Tibet (Director).JPG",
+            alt: "Tibet, Director, on set",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - Vancouver Skyline Andrew (Line Producer), Sarah (Script Supervisor).jpeg",
+            alt: "Andrew (Line Producer) and Sarah (Script Supervisor) with the Vancouver skyline behind them",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - Vancouver Skyline.JPG",
+            alt: "Cast and crew gathered with the Vancouver skyline behind them at golden hour",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS - fooling around on set.JPG",
+            alt: "Cast and crew fooling around between takes",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS Pawn Shop.JPG",
+            alt: "Cast and crew setting up a scene inside the pawn shop location",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/BTS ft. my Van.JPG",
+            alt: "Production gear loaded into the production van",
+            category: "Behind the Scenes",
+          },
+          {
+            src: "/projects/independent-feature-film/Prop Projector (Enigmatic device).JPG",
+            alt: "The enigmatic device prop: a vintage Bausch & Lomb slide carousel projector",
+            category: "Sets & Props",
+          },
+          {
+            src: "/projects/independent-feature-film/Set dec - Cnspiracy Board.JPG",
+            alt: "Set dressing: the conspiracy board with red string connecting news clippings and photos",
+            category: "Sets & Props",
+          },
+          {
+            src: "/projects/independent-feature-film/Set dec - Leland's Trailer.jpeg",
+            alt: "Set dressing for Leland's trailer",
+            category: "Sets & Props",
+          },
+          {
+            src: "/projects/independent-feature-film/Special-effects makeup prosthetic.JPG",
+            alt: "Special-effects makeup prosthetic wound pieces",
+            category: "Sets & Props",
+          },
+          {
+            src: "/projects/independent-feature-film/Shot Preview - Andrew (Doctor), Elahe (Schehrezade), Lainey (Maddie), Sean (Julian).jpeg",
+            alt: "Shot preview: Andrew (Doctor), Elahe (Schehrezade), Lainey (Maddie), and Sean (Julian)",
+            category: "Shot Previews",
+          },
+          {
+            src: "/projects/independent-feature-film/Shot Preview - Atticus (Ethan), Armanddo (Bodhi).jpeg",
+            alt: "Shot preview: Atticus (Ethan) and Armanddo (Bodhi)",
+            category: "Shot Previews",
+          },
+          {
+            src: "/projects/independent-feature-film/Shot Preview - Atticus (Ethan), Dalton (Leland).jpeg",
+            alt: "Shot preview: Atticus (Ethan) and Dalton (Leland)",
+            category: "Shot Previews",
+          },
+          {
+            src: "/projects/independent-feature-film/Shot Preview - Darren (Clive), Tibet (Director),  Dalton (Leland).JPG",
+            alt: "Shot preview: Darren (Clive) and Dalton (Leland), with director Tibet reviewing the frame",
+            category: "Shot Previews",
+          },
+          {
+            src: "/projects/independent-feature-film/Shot Preview - Julian's (Sean) Move.jpeg",
+            alt: "Shot preview from Julian's (Sean) moving-day scene",
+            category: "Shot Previews",
+          },
+          {
+            src: "/projects/independent-feature-film/Shot Preview - Lainey (Maddie), Dalton (Julian).JPG",
+            alt: "Shot preview: Lainey (Maddie) and Dalton (Julian)",
+            category: "Shot Previews",
+          },
+          {
+            src: "/projects/independent-feature-film/Shot Preview - Sunset silhouette.jpeg",
+            alt: "Shot preview: sunset silhouette",
+            category: "Shot Previews",
+          },
+        ],
+      },
     ],
     relatedExperienceSlug: "line-producer",
   },

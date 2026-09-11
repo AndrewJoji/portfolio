@@ -45,6 +45,8 @@ export type StoryDataSnapshot = {
   coverageGap: string;
 };
 
+export type GalleryItem = { src: string; alt: string; category: string };
+
 export type StorySection = {
   heading?: string;
   paragraphs: string[];
@@ -55,6 +57,8 @@ export type StorySection = {
   quote?: StoryQuote;
   properties?: StoryProperty[];
   link?: StoryLink;
+  gallery?: GalleryItem[];
+  galleryHeading?: string;
   dataSnapshot?: StoryDataSnapshot;
 };
 
