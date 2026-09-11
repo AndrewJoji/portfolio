@@ -229,7 +229,7 @@ export const projects: ProjectEntry[] = [
         gallery: [
           {
             type: "image",
-            src: "/projects/independent-feature-film/IMG_4516.JPG",
+            src: "/projects/independent-feature-film/Clapboard.JPG",
             alt: "Production slate for The Sins of Our Father: roll A001, scene 82, take 1, director Tibet Karayazgan",
           },
           {
