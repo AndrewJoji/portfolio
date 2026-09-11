@@ -1,32 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import { findImage } from "@/lib/site-image";
-
-const projects = [
-  {
-    slug: "wholesale-pricing-platform",
-    title: "Wholesale Pricing Platform",
-    description:
-      "Consolidated supplier data into one searchable platform with real-time currency conversion and competitive offer detection.",
-    tags: "Next.js · Prisma · PostgreSQL",
-    tint: "oklch(86% 0.06 130)",
-  },
-  {
-    slug: "health-safety-system-prototype",
-    title: "Health & Safety System Prototype",
-    description:
-      "Led an 8-person Agile team to ship a full-stack GCP prototype with a generative AI chatbot that cut query response time 25%.",
-    tags: "PwC · GCP · Vertex AI",
-    tint: "oklch(82% 0.07 42)",
-  },
-  {
-    slug: "independent-feature-film",
-    title: "Independent Feature Film",
-    description:
-      "Managing a $12,000 production budget and 10+ vendor and location contracts for a 20-person cast and crew.",
-    tags: "Line Producing · Film",
-    tint: "oklch(86% 0.06 130)",
-  },
-];
+import { projects } from "@/lib/projects";
 
 export function Projects() {
   return (
@@ -39,9 +14,10 @@ export function Projects() {
           const image = findImage("projects", project.slug);
 
           return (
-            <div
+            <Link
               key={project.slug}
-              className="overflow-hidden rounded-2xl bg-card shadow-[0_10px_28px_-20px_oklch(35%_0.04_50_/_0.55)]"
+              href={`/projects/${project.slug}`}
+              className="group overflow-hidden rounded-2xl bg-card shadow-[0_10px_28px_-20px_oklch(35%_0.04_50_/_0.55)] transition-shadow hover:shadow-[0_14px_32px_-18px_oklch(35%_0.04_50_/_0.6)]"
             >
               <div
                 className="relative flex h-[190px] items-center justify-center text-sm text-foreground/70"
@@ -60,13 +36,18 @@ export function Projects() {
                 )}
               </div>
               <div className="p-6">
-                <div className="text-lg font-semibold">{project.title}</div>
+                <div className="text-lg font-semibold group-hover:underline">
+                  {project.title}
+                </div>
                 <div className="mt-2 text-sm leading-relaxed text-muted">
-                  {project.description}
+                  {project.summary}
                 </div>
                 <div className="mt-3 text-xs text-muted">{project.tags}</div>
+                <div className="mt-4 text-sm font-medium text-accent">
+                  View project &rarr;
+                </div>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>
