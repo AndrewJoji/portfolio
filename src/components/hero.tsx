@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { ParallaxPortrait } from "@/components/parallax-portrait";
 import { findImage } from "@/lib/site-image";
 
 export function Hero() {
@@ -37,14 +37,7 @@ export function Hero() {
       <div className="lg:col-span-5">
         <div className="relative flex h-[340px] items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-[oklch(85%_0.05_60)] to-[oklch(74%_0.08_42)] text-xs font-semibold tracking-wide text-background uppercase sm:h-[420px]">
           {portrait ? (
-            <Image
-              src={portrait}
-              alt="Andrew Joji"
-              fill
-              sizes="(min-width: 1024px) 40vw, 90vw"
-              className="object-cover"
-              priority
-            />
+            <ParallaxPortrait src={portrait} alt="Andrew Joji" />
           ) : (
             "[portrait photo]"
           )}
