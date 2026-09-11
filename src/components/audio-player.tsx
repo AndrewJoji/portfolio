@@ -1,6 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useReader } from "@/components/reader-context";
+
+const RATES = [0.75, 1, 1.25, 1.5, 2];
 
 function PlayIcon() {
   return (
@@ -19,40 +21,75 @@ function PauseIcon() {
   );
 }
 
-export function AudioPlayer({ src }: { src: string }) {
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const [playing, setPlaying] = useState(false);
+function formatTime(seconds: number) {
+  if (!Number.isFinite(seconds)) return "0:00";
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${s.toString().padStart(2, "0")}`;
+}
 
-  function toggle() {
-    const audio = audioRef.current;
-    if (!audio) return;
-    if (playing) {
-      audio.pause();
-    } else {
-      audio.play();
-    }
+export function AudioPlayer() {
+  const reader = useReader();
+
+  if (!reader) return null;
+
+  function cycleRate() {
+    const i = RATES.indexOf(reader!.playbackRate);
+    reader!.setRate(RATES[(i + 1) % RATES.length]);
   }
 
   return (
-    <div className="inline-flex items-center gap-2.5">
+    <div className="flex max-w-md flex-wrap items-center gap-3">
       <button
         type="button"
-        onClick={toggle}
-        aria-label={playing ? "Pause reading" : "Read this page aloud"}
-        className="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-background"
+        onClick={() => reader.skip(-10)}
+        aria-label="Back 10 seconds"
+        className="rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted"
       >
-        {playing ? <PauseIcon /> : <PlayIcon />}
+        &minus;10s
       </button>
-      <span className="text-sm font-medium text-muted">
-        {playing ? "Reading…" : "Read aloud"}
-      </span>
-      <audio
-        ref={audioRef}
-        src={src}
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
-        onEnded={() => setPlaying(false)}
+
+      <button
+        type="button"
+        onClick={reader.toggle}
+        aria-label={reader.isPlaying ? "Pause reading" : "Read this page aloud"}
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-background"
+      >
+        {reader.isPlaying ? <PauseIcon /> : <PlayIcon />}
+      </button>
+
+      <button
+        type="button"
+        onClick={() => reader.skip(10)}
+        aria-label="Forward 10 seconds"
+        className="rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted"
+      >
+        +10s
+      </button>
+
+      <input
+        type="range"
+        min={0}
+        max={reader.duration || 0}
+        step={0.1}
+        value={reader.currentTime}
+        onChange={(e) => reader.seek(Number(e.target.value))}
+        aria-label="Seek"
+        className="h-1.5 min-w-[80px] flex-1 cursor-pointer appearance-none rounded-full bg-border accent-accent"
       />
+
+      <span className="shrink-0 text-xs tabular-nums text-muted">
+        {formatTime(reader.currentTime)} / {formatTime(reader.duration)}
+      </span>
+
+      <button
+        type="button"
+        onClick={cycleRate}
+        aria-label="Playback speed"
+        className="shrink-0 rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted"
+      >
+        {reader.playbackRate}x
+      </button>
     </div>
   );
 }

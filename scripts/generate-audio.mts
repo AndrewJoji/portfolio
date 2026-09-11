@@ -2,7 +2,8 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { experience } from "../src/lib/experience.ts";
 import { projects } from "../src/lib/projects.ts";
-import { aboutText, heroHeadline, heroTagline } from "../src/lib/site-copy.ts";
+import { aboutText, heroTagline } from "../src/lib/site-copy.ts";
+import { alignmentToBlocks, type CharAlignment } from "./lib/alignment.mts";
 
 const apiKey = process.env.ELEVENLABS_API_KEY;
 const voiceId = process.env.ELEVENLABS_VOICE_ID;
@@ -21,64 +22,78 @@ if (!voiceId) {
   process.exit(1);
 }
 
-type Track = { outPath: string; text: string };
+type Page = { key: string; blockTexts: string[] };
 
-function experienceText(entry: (typeof experience)[number]): string {
+// Titles/headings are intentionally excluded from spoken + highlighted
+// blocks: they use manual line breaks or mixed styling that don't map
+// cleanly onto word-span rendering. Reading starts at the first bullet
+// or paragraph instead.
+function experienceBlocks(entry: (typeof experience)[number]): string[] {
   if (entry.story) {
-    return entry.story
-      .map((section) => {
-        const heading = section.heading ? `${section.heading}. ` : "";
-        return heading + section.paragraphs.join(" ");
-      })
-      .join(" ");
+    return entry.story.flatMap((section) =>
+      section.heading ? [section.heading, ...section.paragraphs] : section.paragraphs,
+    );
   }
-  return entry.bullets.join(" ");
+  return entry.bullets;
 }
 
-const tracks: Track[] = [
-  {
-    outPath: "public/audio/home.mp3",
-    text: [heroHeadline, heroTagline, aboutText].join(" "),
-  },
+const pages: Page[] = [
+  { key: "home", blockTexts: [heroTagline, aboutText] },
   ...experience.map((entry) => ({
-    outPath: `public/audio/experience/${entry.slug}.mp3`,
-    text: `${entry.title}, ${entry.org}. ${experienceText(entry)}`,
+    key: `experience/${entry.slug}`,
+    blockTexts: experienceBlocks(entry),
   })),
   ...projects.map((project) => ({
-    outPath: `public/audio/projects/${project.slug}.mp3`,
-    text: `${project.title}, ${project.org}. ${project.bullets.join(" ")}`,
+    key: `projects/${project.slug}`,
+    blockTexts: project.bullets,
   })),
 ];
 
-async function generate(track: Track) {
+async function generate(page: Page) {
+  const fullText = page.blockTexts.join(" ");
+
   const res = await fetch(
-    `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+    `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/with-timestamps`,
     {
       method: "POST",
       headers: {
         "xi-api-key": apiKey!,
         "Content-Type": "application/json",
-        Accept: "audio/mpeg",
       },
       body: JSON.stringify({
-        text: track.text,
+        text: fullText,
         model_id: "eleven_turbo_v2_5",
+        output_format: "mp3_44100_128",
       }),
     },
   );
 
   if (!res.ok) {
     throw new Error(
-      `ElevenLabs API error for ${track.outPath}: ${res.status} ${await res.text()}`,
+      `ElevenLabs API error for ${page.key}: ${res.status} ${await res.text()}`,
     );
   }
 
-  const buffer = Buffer.from(await res.arrayBuffer());
-  mkdirSync(path.dirname(track.outPath), { recursive: true });
-  writeFileSync(track.outPath, buffer);
-  console.log(`wrote ${track.outPath} (${buffer.length} bytes)`);
+  const json = (await res.json()) as {
+    audio_base64: string;
+    alignment: CharAlignment;
+  };
+
+  const audioBuffer = Buffer.from(json.audio_base64, "base64");
+  const mp3Path = `public/audio/${page.key}.mp3`;
+  const jsonPath = `public/audio/${page.key}.json`;
+
+  mkdirSync(path.dirname(mp3Path), { recursive: true });
+  writeFileSync(mp3Path, audioBuffer);
+
+  const blocks = alignmentToBlocks(page.blockTexts, json.alignment);
+  writeFileSync(jsonPath, JSON.stringify({ blocks }));
+
+  console.log(
+    `wrote ${mp3Path} (${audioBuffer.length} bytes), ${jsonPath} (${blocks.reduce((n, b) => n + b.words.length, 0)} words)`,
+  );
 }
 
-for (const track of tracks) {
-  await generate(track);
+for (const page of pages) {
+  await generate(page);
 }

@@ -1,3 +1,4 @@
+import { ReadableText } from "@/components/readable-text";
 import { aboutText } from "@/lib/site-copy";
 
 export function About() {
@@ -13,7 +14,7 @@ export function About() {
       </div>
       <div className="lg:col-span-8">
         <p className="font-serif text-2xl italic leading-relaxed sm:text-3xl">
-          {aboutText}
+          <ReadableText blockIndex={1} fallback={aboutText} />
         </p>
       </div>
     </section>
