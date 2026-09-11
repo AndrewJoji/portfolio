@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getLocalMedia } from "@/lib/local-media";
 import { findImage } from "@/lib/site-image";
 import { projects } from "@/lib/projects";
 
@@ -11,7 +12,10 @@ export function Projects() {
       </div>
       <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => {
-          const image = findImage("projects", project.slug);
+          const firstLocalImage = getLocalMedia("projects", project.slug).find(
+            (m) => m.type === "image",
+          );
+          const image = firstLocalImage?.src ?? findImage("projects", project.slug);
 
           return (
             <Link
