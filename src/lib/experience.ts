@@ -81,7 +81,7 @@ export const experience: ExperienceEntry[] = [
       "Managed a VDI migration for 20+ desktops and reduced high-level support requests by 40% through proactive stakeholder communication and thorough documentation maintained on Confluence.",
     ],
     video: {
-      title: "Programmer Analyst project walkthrough",
+      title: "Programmer Analyst Co-Op \"Day in my Life\"",
       youtubeId: "TVAfr5lGLkY",
     },
   },
