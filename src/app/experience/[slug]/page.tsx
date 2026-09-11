@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { MediaCarousel } from "@/components/media-carousel";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
-import { YoutubeEmbed } from "@/components/youtube-embed";
 import { experience, getExperience } from "@/lib/experience";
+import { getLocalMedia } from "@/lib/experience-media";
+import type { MediaItem } from "@/lib/media";
 
 export function generateStaticParams() {
   return experience.map((entry) => ({ slug: entry.slug }));
@@ -33,6 +35,19 @@ export default async function ExperiencePage(
     notFound();
   }
 
+  const media: MediaItem[] = [
+    ...(entry.video?.youtubeId
+      ? [
+          {
+            type: "youtube" as const,
+            youtubeId: entry.video.youtubeId,
+            title: entry.video.title,
+          },
+        ]
+      : []),
+    ...getLocalMedia(slug),
+  ];
+
   return (
     <div className="flex flex-1 flex-col">
       <SiteNav />
@@ -51,17 +66,12 @@ export default async function ExperiencePage(
             <li key={bullet}>{bullet}</li>
           ))}
         </ul>
-        {entry.video ? (
-          <div className="mt-12 max-w-2xl">
-            <div className="mb-3 text-xs font-medium tracking-[0.12em] text-muted uppercase">
-              {entry.video.title}
-            </div>
-            <YoutubeEmbed
-              youtubeId={entry.video.youtubeId}
-              title={entry.video.title}
-            />
+        <div className="mt-12 max-w-2xl">
+          <div className="mb-3 text-xs font-medium tracking-[0.12em] text-muted uppercase">
+            Media
           </div>
-        ) : null}
+          <MediaCarousel media={media} />
+        </div>
       </article>
       <SiteFooter />
     </div>
