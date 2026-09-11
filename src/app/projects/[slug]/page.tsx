@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AudioPlayer } from "@/components/audio-player";
 import { MediaCarousel } from "@/components/media-carousel";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
 import { getLocalMedia } from "@/lib/local-media";
 import type { MediaItem } from "@/lib/media";
 import { getProject, projects } from "@/lib/projects";
+import { findAudio } from "@/lib/site-audio";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -34,6 +36,7 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
   }
 
   const localMedia = getLocalMedia("projects", slug);
+  const audio = findAudio(`projects/${slug}`);
 
   return (
     <div className="flex flex-1 flex-col">
@@ -48,6 +51,12 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
         <div className="mt-3 text-muted">
           {project.org} &middot; {project.years}
         </div>
+
+        {audio ? (
+          <div className="mt-6">
+            <AudioPlayer src={audio} />
+          </div>
+        ) : null}
 
         <ul className="mt-10 flex max-w-2xl flex-col gap-4 text-lg leading-relaxed text-muted">
           {project.bullets.map((bullet) => (

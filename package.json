@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "next typegen && tsc --noEmit"
+    "typecheck": "next typegen && tsc --noEmit",
+    "voices": "node --env-file-if-exists=.env.local scripts/list-voices.mts",
+    "generate-audio": "node --env-file-if-exists=.env.local scripts/generate-audio.mts"
   },
   "dependencies": {
     "next": "16.3.4",

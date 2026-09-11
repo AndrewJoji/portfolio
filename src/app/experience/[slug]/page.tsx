@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AudioPlayer } from "@/components/audio-player";
 import { MediaCarousel } from "@/components/media-carousel";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
@@ -7,6 +8,7 @@ import { StoryVideoBand } from "@/components/story-video-band";
 import { experience, getExperience } from "@/lib/experience";
 import { getLocalMedia } from "@/lib/local-media";
 import type { MediaItem } from "@/lib/media";
+import { findAudio } from "@/lib/site-audio";
 
 export function generateStaticParams() {
   return experience.map((entry) => ({ slug: entry.slug }));
@@ -37,6 +39,7 @@ export default async function ExperiencePage(
   }
 
   const localMedia = getLocalMedia("experience", slug);
+  const audio = findAudio(`experience/${slug}`);
 
   return (
     <div className="flex flex-1 flex-col">
@@ -51,6 +54,12 @@ export default async function ExperiencePage(
         <div className="mt-3 text-muted">
           {entry.org} &middot; {entry.location} &middot; {entry.years}
         </div>
+
+        {audio ? (
+          <div className="mt-6">
+            <AudioPlayer src={audio} />
+          </div>
+        ) : null}
 
         {entry.story ? (
           <>

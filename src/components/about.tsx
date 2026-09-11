@@ -1,3 +1,5 @@
+import { aboutText } from "@/lib/site-copy";
+
 export function About() {
   return (
     <section
@@ -11,10 +13,7 @@ export function About() {
       </div>
       <div className="lg:col-span-8">
         <p className="font-serif text-2xl italic leading-relaxed sm:text-3xl">
-          My path runs through CS fundamentals, a startup I
-          founded, indie film sets, and volunteer work that matters. Different rooms, same
-          instinct &mdash; and it turns out range is the point, not a
-          detour.
+          {aboutText}
         </p>
       </div>
     </section>
