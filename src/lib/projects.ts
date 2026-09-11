@@ -71,6 +71,52 @@ export const projects: ProjectEntry[] = [
     relatedExperienceSlug: "founder-operator-itsworthit",
   },
   {
+    slug: "ebay-listing-assistant",
+    title: "eBay Listing Assistant",
+    org: "itsWorthIt Solutions",
+    years: "2026 – Present",
+    summary:
+      "An AI-orchestrated pipeline that turns raw phone photos into a reviewable eBay draft listing — computer vision, PriceCharting pricing, and a hard stop before anything goes live.",
+    tags: "Claude · eBay API · Computer Vision",
+    tint: "oklch(84% 0.05 80)",
+    bullets: [
+      "Built an end-to-end AI-orchestrated pipeline that turns raw phone photos into a ready-to-review eBay draft listing, without touching eBay's UI.",
+      "Grouped and sorted photos by EXIF timestamp, splitting per-item using a spacer-photo convention shot between items.",
+      "Used computer vision to read box art, cartridge labels, disc printing, and barcodes to identify title, platform, region, and edition, with barcodes taking precedence for disambiguation.",
+      "Priced each item via PriceCharting's quoted values rather than averaging raw sold comps, converted to CAD, with thin or inconsistent comp sets flagged for manual review.",
+      "Assembled HTML descriptions from a fixed boilerplate plus condition-specific templates, keeping eBay's separate Condition Details field distinct from the listing body.",
+      "Sequenced the eBay Inventory, Media, and Account APIs — OAuth, photo upload, inventory item, draft offer — with a hard stop before publish: listings only go live on my explicit per-item approval.",
+    ],
+    story: [
+      {
+        heading: "The problem",
+        paragraphs: [
+          "Manually listing on eBay is a lot of repetitive work per item — photographing it, tracking down an accurate price, writing a description, uploading photos, and filling in item specifics, all before a single listing goes live. I built an AI-orchestrated pipeline, running inside a Claude Project, that handles everything except the final go-ahead to publish.",
+        ],
+      },
+      {
+        heading: "How it works",
+        paragraphs: [
+          "I shoot photos in one session, with a spacer photo — my hand, or a blank card — between items. The pipeline sorts by EXIF timestamp and splits on those spacers to reconstruct per-item groups automatically, then reads box art, cartridge labels, disc printing, and barcodes to identify title, platform, region, and edition — barcodes win over label text whenever they disagree. From there it assesses condition (complete-in-box, loose, sealed, and so on) and moves on to pricing and drafting the listing.",
+        ],
+        diagram: "listing-pipeline",
+      },
+      {
+        heading: "Pricing it right",
+        paragraphs: [
+          "Pricing comes from PriceCharting's quoted value rather than averaging raw sold listings — a single quoted price holds up better against outliers than a handful of scattered comps. Items missing a manual get priced at the midpoint between loose and complete. Everything converts to CAD, and if the comp data is thin or inconsistent, the pipeline flags it for me instead of guessing.",
+        ],
+      },
+      {
+        heading: "Built to never publish blind",
+        paragraphs: [
+          "The eBay side runs the real Inventory, Media, and Account APIs — OAuth token refresh, photo upload, inventory item creation, then a draft offer — but it stops there on purpose. I get a review summary with title, condition, price, and a link to the draft, and nothing goes live until I approve that specific listing. SKUs are generated deterministically, so re-running the pipeline on the same item never creates a duplicate.",
+        ],
+      },
+    ],
+    relatedExperienceSlug: "founder-operator-itsworthit",
+  },
+  {
     slug: "health-safety-system-prototype",
     title: "Health & Safety System Prototype",
     org: "PricewaterhouseCoopers (UBC Industry Applications Program)",

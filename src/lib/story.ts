@@ -4,7 +4,7 @@ export type StoryVideo = {
   start?: number;
 };
 
-export type StoryDiagramId = "ebay-pipeline" | "ebay-funnel";
+export type StoryDiagramId = "ebay-pipeline" | "ebay-funnel" | "listing-pipeline";
 
 export type StorySection = {
   heading?: string;

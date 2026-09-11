@@ -42,19 +42,26 @@ function Pipeline() {
   );
 }
 
-function Funnel() {
-  const stages = [
-    { title: "Source", sub: "marketplace finds + full collections" },
-    { title: "List", sub: "pricing + inventory tooling" },
-    { title: "Sell", sub: "eBay + local + conventions" },
-    { title: "Track", sub: "KPIs in Python + Sheets" },
-  ];
+type FlowStage = { title: string; sub: string | [string, string]; gate?: boolean };
+
+function Flow({
+  stages,
+  loopLabel,
+  ariaLabel,
+}: {
+  stages: FlowStage[];
+  loopLabel?: string;
+  ariaLabel: string;
+}) {
   const w = 860;
-  const stageW = 180;
+  const stageW = 130;
+  const boxH = 76;
   const gap = (w - stageW * stages.length) / (stages.length - 1) + stageW;
+  const height = loopLabel ? 200 : 150;
+  const midY = 30 + boxH / 2;
 
   return (
-    <svg viewBox="0 0 860 190" className="h-auto w-full" role="img" aria-label="Process funnel: source, list, sell, track KPIs, with a feedback loop from tracking back to sourcing">
+    <svg viewBox={`0 0 860 ${height}`} className="h-auto w-full" role="img" aria-label={ariaLabel}>
       <defs>
         <marker id="arrowhead2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
           <path d="M0,0 L6,3 L0,6 Z" className="fill-accent" />
@@ -62,14 +69,33 @@ function Funnel() {
       </defs>
       {stages.map((stage, i) => {
         const x = i * gap;
+        const lines = Array.isArray(stage.sub) ? stage.sub : [stage.sub];
         return (
           <g key={stage.title}>
-            <rect x={x} y="40" width={stageW} height="64" rx="14" className={box} strokeWidth="1.5" />
-            <text x={x + stageW / 2} y="66" textAnchor="middle" className={label}>{stage.title}</text>
-            <text x={x + stageW / 2} y="84" textAnchor="middle" className={sublabel}>{stage.sub}</text>
+            <rect
+              x={x}
+              y="30"
+              width={stageW}
+              height={boxH}
+              rx="14"
+              className={stage.gate ? "fill-panel stroke-accent" : box}
+              strokeWidth="1.5"
+            />
+            <text x={x + stageW / 2} y="56" textAnchor="middle" className={label}>{stage.title}</text>
+            {lines.map((line, j) => (
+              <text
+                key={j}
+                x={x + stageW / 2}
+                y={74 + j * 14}
+                textAnchor="middle"
+                className={sublabel}
+              >
+                {line}
+              </text>
+            ))}
             {i < stages.length - 1 ? (
               <path
-                d={`M${x + stageW},72 L${x + gap},72`}
+                d={`M${x + stageW},${midY} L${x + gap},${midY}`}
                 fill="none"
                 className={arrow}
                 strokeWidth="1.5"
@@ -79,25 +105,58 @@ function Funnel() {
           </g>
         );
       })}
-      <path
-        d={`M${(stages.length - 1) * gap + stageW / 2},104 C ${(stages.length - 1) * gap + stageW / 2},160 90,160 90,104`}
-        fill="none"
-        className={arrow}
-        strokeWidth="1.5"
-        strokeDasharray="4 4"
-        markerEnd="url(#arrowhead2)"
-      />
-      <text x="430" y="178" textAnchor="middle" className={sublabel}>
-        buyer feedback loops back into pricing + sourcing decisions
-      </text>
+      {loopLabel ? (
+        <>
+          <path
+            d={`M${(stages.length - 1) * gap + stageW / 2},${30 + boxH} C ${(stages.length - 1) * gap + stageW / 2},${height - 20} 90,${height - 20} 90,${30 + boxH}`}
+            fill="none"
+            className={arrow}
+            strokeWidth="1.5"
+            strokeDasharray="4 4"
+            markerEnd="url(#arrowhead2)"
+          />
+          <text x="430" y={height - 12} textAnchor="middle" className={sublabel}>{loopLabel}</text>
+        </>
+      ) : null}
     </svg>
+  );
+}
+
+function Funnel() {
+  return (
+    <Flow
+      ariaLabel="Process funnel: source, list, sell, track KPIs, with a feedback loop from tracking back to sourcing"
+      loopLabel="buyer feedback loops back into pricing + sourcing decisions"
+      stages={[
+        { title: "Source", sub: "marketplace finds + full collections" },
+        { title: "List", sub: "pricing + inventory tooling" },
+        { title: "Sell", sub: "eBay + local + conventions" },
+        { title: "Track", sub: "KPIs in Python + Sheets" },
+      ]}
+    />
+  );
+}
+
+function ListingPipeline() {
+  return (
+    <Flow
+      ariaLabel="Listing pipeline: photos, identify, condition, price, draft listing, then a human-approval gate before publish"
+      stages={[
+        { title: "Photos", sub: ["EXIF sort +", "group by spacer"] },
+        { title: "Identify", sub: ["box art,", "barcodes (vision)"] },
+        { title: "Condition", sub: ["tier +", "description"] },
+        { title: "Price", sub: ["PriceCharting,", "converted to CAD"] },
+        { title: "Draft", sub: ["Inventory +", "Media API"] },
+        { title: "Approve", sub: ["review, then", "publish"], gate: true },
+      ]}
+    />
   );
 }
 
 export function StoryDiagram({ id }: { id: StoryDiagramId }) {
   return (
     <div className="my-10 max-w-3xl rounded-3xl border border-border bg-background p-6">
-      {id === "ebay-pipeline" ? <Pipeline /> : <Funnel />}
+      {id === "ebay-pipeline" ? <Pipeline /> : id === "ebay-funnel" ? <Funnel /> : <ListingPipeline />}
     </div>
   );
 }
