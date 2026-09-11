@@ -3,6 +3,7 @@ import path from "node:path";
 import { experience } from "../src/lib/experience.ts";
 import { projects } from "../src/lib/projects.ts";
 import { aboutText, heroTagline } from "../src/lib/site-copy.ts";
+import type { StorySection } from "../src/lib/story.ts";
 import { alignmentToBlocks, type CharAlignment } from "./lib/alignment.mts";
 
 const apiKey = process.env.ELEVENLABS_API_KEY;
@@ -24,28 +25,27 @@ if (!voiceId) {
 
 type Page = { key: string; blockTexts: string[] };
 
-// Titles/headings are intentionally excluded from spoken + highlighted
-// blocks: they use manual line breaks or mixed styling that don't map
-// cleanly onto word-span rendering. Reading starts at the first bullet
-// or paragraph instead.
-function experienceBlocks(entry: (typeof experience)[number]): string[] {
-  if (entry.story) {
-    return entry.story.flatMap((section) =>
-      section.heading ? [section.heading, ...section.paragraphs] : section.paragraphs,
-    );
-  }
-  return entry.bullets;
+// Page titles/headings above the fold are intentionally excluded from
+// spoken + highlighted blocks: they use manual line breaks or mixed
+// styling that don't map cleanly onto word-span rendering. Reading
+// starts at the first bullet or paragraph instead.
+function storyBlocks(story: StorySection[]): string[] {
+  return story.flatMap((section) => {
+    const blocks = section.heading ? [section.heading, ...section.paragraphs] : [...section.paragraphs];
+    if (section.quote) blocks.push(section.quote.text);
+    return blocks;
+  });
 }
 
 const pages: Page[] = [
   { key: "home", blockTexts: [heroTagline, aboutText] },
   ...experience.map((entry) => ({
     key: `experience/${entry.slug}`,
-    blockTexts: experienceBlocks(entry),
+    blockTexts: entry.story ? storyBlocks(entry.story) : entry.bullets,
   })),
   ...projects.map((project) => ({
     key: `projects/${project.slug}`,
-    blockTexts: project.bullets,
+    blockTexts: project.story ? storyBlocks(project.story) : project.bullets,
   })),
 ];
 

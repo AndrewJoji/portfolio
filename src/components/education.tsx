@@ -18,7 +18,16 @@ export function Education() {
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
             16 months of co-op across two terms &mdash; 8 months with UBC
             Student Housing &amp; the UBC Bookstore, and 8 months running
-            itsWorthIt Solutions as my own entrepreneurship co-op placement.
+            itsWorthIt Solutions as my own{" "}
+            <a
+              href="https://sciencecoop.ubc.ca/Entrepreneurial-Co-op"
+              target="_blank"
+              rel="noreferrer"
+              className="text-accent"
+            >
+              entrepreneurship co-op
+            </a>{" "}
+            placement.
           </p>
         </div>
       </div>
