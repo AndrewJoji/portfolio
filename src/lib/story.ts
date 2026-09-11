@@ -57,3 +57,7 @@ export type StorySection = {
   link?: StoryLink;
   dataSnapshot?: StoryDataSnapshot;
 };
+
+export function firstStoryDiagram(story?: StorySection[]): StoryDiagramId | undefined {
+  return story?.find((section) => section.diagram)?.diagram;
+}

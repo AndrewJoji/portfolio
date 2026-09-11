@@ -153,10 +153,14 @@ function ListingPipeline() {
   );
 }
 
+export function StoryDiagramSvg({ id }: { id: StoryDiagramId }) {
+  return id === "ebay-pipeline" ? <Pipeline /> : id === "ebay-funnel" ? <Funnel /> : <ListingPipeline />;
+}
+
 export function StoryDiagram({ id }: { id: StoryDiagramId }) {
   return (
     <div className="my-10 max-w-3xl rounded-3xl border border-border bg-background p-6">
-      {id === "ebay-pipeline" ? <Pipeline /> : id === "ebay-funnel" ? <Funnel /> : <ListingPipeline />}
+      <StoryDiagramSvg id={id} />
     </div>
   );
 }
