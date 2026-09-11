@@ -1,5 +1,8 @@
+import { AudioPlayer } from "@/components/audio-player";
 import { ParallaxPortrait } from "@/components/parallax-portrait";
+import { ReadableText } from "@/components/readable-text";
 import { findImage } from "@/lib/site-image";
+import { heroTagline } from "@/lib/site-copy";
 
 export function Hero() {
   const portrait = findImage("home", "portrait");
@@ -15,9 +18,7 @@ export function Hero() {
           order, and every order.
         </h1>
         <p className="mt-7 max-w-lg text-lg leading-relaxed text-muted">
-          I build software with the same instinct I used to line-produce
-          film sets and start a company: figure out what&rsquo;s broken,
-          rally the people who can fix it, ship it on time.
+          <ReadableText blockIndex={0} fallback={heroTagline} />
         </p>
         <div className="mt-9 flex items-center gap-5">
           <a
@@ -32,6 +33,9 @@ export function Hero() {
           >
             Get in touch &rarr;
           </a>
+        </div>
+        <div className="mt-6">
+          <AudioPlayer />
         </div>
       </div>
       <div className="lg:col-span-5">
