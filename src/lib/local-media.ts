@@ -19,8 +19,8 @@ function toLabel(filename: string) {
   return spaced ? spaced.charAt(0).toUpperCase() + spaced.slice(1) : "";
 }
 
-export function getLocalMedia(slug: string): MediaItem[] {
-  const dir = path.join(process.cwd(), "public", "experience", slug);
+export function getLocalMedia(category: string, slug: string): MediaItem[] {
+  const dir = path.join(process.cwd(), "public", category, slug);
 
   let files: string[];
   try {
@@ -37,7 +37,7 @@ export function getLocalMedia(slug: string): MediaItem[] {
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
     .map((file) => {
       const ext = path.extname(file).toLowerCase();
-      const src = `/experience/${slug}/${file}`;
+      const src = `/${category}/${slug}/${file}`;
       const alt = toLabel(file);
       return IMAGE_EXTENSIONS.has(ext)
         ? ({ type: "image", src, alt } as const)

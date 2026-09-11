@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
 import { StoryVideoBand } from "@/components/story-video-band";
 import { experience, getExperience } from "@/lib/experience";
-import { getLocalMedia } from "@/lib/experience-media";
+import { getLocalMedia } from "@/lib/local-media";
 import type { MediaItem } from "@/lib/media";
 
 export function generateStaticParams() {
@@ -36,7 +36,7 @@ export default async function ExperiencePage(
     notFound();
   }
 
-  const localMedia = getLocalMedia(slug);
+  const localMedia = getLocalMedia("experience", slug);
 
   return (
     <div className="flex flex-1 flex-col">
@@ -106,6 +106,7 @@ export default async function ExperiencePage(
                     ...localMedia,
                   ] satisfies MediaItem[]
                 }
+                emptyHint={`[Add photos or videos to public/experience/${slug}]`}
               />
             </div>
           </>
