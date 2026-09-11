@@ -1,5 +1,6 @@
 import { About } from "@/components/about";
 import { ContactCta } from "@/components/contact-cta";
+import { Education } from "@/components/education";
 import { Experience } from "@/components/experience";
 import { Hero } from "@/components/hero";
 import { Projects } from "@/components/projects";
@@ -16,6 +17,7 @@ export default function Home() {
       <SiteNav />
       <Hero />
       <About />
+      <Education />
       <Experience />
       <Projects />
       <ContactCta />
