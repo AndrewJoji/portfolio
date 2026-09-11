@@ -1,5 +1,6 @@
 "use client";
 
+import { InfoTooltip } from "@/components/info-tooltip";
 import { useReader } from "@/components/reader-context";
 
 const RATES = [0.75, 1, 1.25, 1.5, 2];
@@ -90,6 +91,11 @@ export function AudioPlayer() {
       >
         {reader.playbackRate}x
       </button>
+
+      <InfoTooltip>
+        This is an accessibility feature powered by the ElevenLabs API,
+        read in a voice cloned from a short recording of mine.
+      </InfoTooltip>
     </div>
   );
 }
