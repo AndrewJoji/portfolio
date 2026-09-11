@@ -1,4 +1,5 @@
 import { MediaCarousel } from "@/components/media-carousel";
+import { MediaGrid } from "@/components/media-grid";
 import { ReadableText } from "@/components/readable-text";
 import { StoryDiagram } from "@/components/story-diagram";
 import { StoryProperties } from "@/components/story-properties";
@@ -30,7 +31,9 @@ export function StoryBody({
   const sectionBlocks = blockIndices(story);
   const inlineSrcs = new Set(
     story.flatMap((section) =>
-      (section.images ?? []).flatMap((m) => (m.type === "youtube" ? [] : [m.src])),
+      [...(section.images ?? []), ...(section.gallery ?? [])].flatMap((m) =>
+        m.type === "youtube" ? [] : [m.src],
+      ),
     ),
   );
   const remainingMedia = localMedia.filter(
@@ -87,6 +90,9 @@ export function StoryBody({
             </div>
           ) : null}
           {section.properties ? <StoryProperties properties={section.properties} /> : null}
+          {section.gallery ? (
+            <MediaGrid heading={section.galleryHeading} media={section.gallery} />
+          ) : null}
           {section.video ? <StoryVideoBand video={section.video} /> : null}
           {section.diagram ? <StoryDiagram id={section.diagram} /> : null}
         </div>

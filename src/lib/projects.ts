@@ -224,6 +224,112 @@ export const projects: ProjectEntry[] = [
         ],
       },
       {
+        paragraphs: [],
+        galleryHeading: "Behind the scenes",
+        gallery: [
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_4516.JPG",
+            alt: "Production slate for The Sins of Our Father: roll A001, scene 82, take 1, director Tibet Karayazgan",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_4523.JPG",
+            alt: "Conspiracy-board set dressing with red string connecting news clippings and photos",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_4767.JPG",
+            alt: "Director's monitor showing a bedroom scene with three actors framed around a table",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_4769.JPG",
+            alt: "Sony FX6 cinema camera rig on a tripod, close up on the lens and matte box",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_5500.JPG",
+            alt: "Atomos field monitor showing a take in progress, operator watching over the shoulder",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_5991.JPG",
+            alt: "Crew member reviewing script pages on an exterior location between setups",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_6217.JPG",
+            alt: "Crew loading gear into a minivan in a driveway between locations",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_6244.JPG",
+            alt: "Cast and crew gathered on a porch around the slate, reflector, and wireless video transmitter",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_6628.JPG",
+            alt: "Vintage Bausch & Lomb slide carousel projector, a key prop tied to the film's plot",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_6642.JPG",
+            alt: "Cast and crew setting up a scene inside an antique shop location",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_6866.JPG",
+            alt: "Cast laughing together on a couch between takes, boom mic overhead",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_6900.JPG",
+            alt: "Kitchen scene setup with a lighting rig, actors at the stove",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_7001.JPG",
+            alt: "Crew placing a prop headstone reading \"The Montgomery's\" for a cemetery scene",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_7017.JPG",
+            alt: "Crew huddled around a phone reviewing a take on location",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_7103.JPG",
+            alt: "Boom operator against the Vancouver skyline at golden hour",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_7106.JPG",
+            alt: "Cast and crew gathered on a seawall with the Vancouver skyline behind them at sunset",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_7274.JPG",
+            alt: "Special-effects makeup prosthetic wound pieces laid out before application",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_7280.JPG",
+            alt: "Makeup artist applying a prosthetic wound to an actor's face",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_7413.JPG",
+            alt: "Vintage prop clapperboard being marked by hand between takes",
+          },
+          {
+            type: "image",
+            src: "/projects/independent-feature-film/IMG_7538.JPG",
+            alt: "Actor in a lab coat performing to a GoPro mounted on a selfie stick",
+          },
+        ],
+      },
+      {
         heading: "Where it's headed",
         paragraphs: [
           "Production wrapped within budget. Post-production — editing, music, visual effects, sound, and final film and lab work — is next, and I'm currently leading fundraising to cover it as we prepare to pitch the finished film to distributors.",

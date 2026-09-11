@@ -27,4 +27,6 @@ export type StorySection = {
   quote?: StoryQuote;
   properties?: StoryProperty[];
   link?: StoryLink;
+  gallery?: MediaItem[];
+  galleryHeading?: string;
 };
