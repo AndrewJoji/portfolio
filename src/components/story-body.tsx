@@ -1,6 +1,7 @@
 import { MediaCarousel } from "@/components/media-carousel";
 import { MediaGrid } from "@/components/media-grid";
 import { ReadableText } from "@/components/readable-text";
+import { StoryDataSnapshotBlock } from "@/components/story-data-snapshot";
 import { StoryDiagram } from "@/components/story-diagram";
 import { StoryProperties } from "@/components/story-properties";
 import { StoryQuoteBlock } from "@/components/story-quote";
@@ -93,6 +94,7 @@ export function StoryBody({
           {section.gallery ? (
             <MediaGrid heading={section.galleryHeading} media={section.gallery} />
           ) : null}
+          {section.dataSnapshot ? <StoryDataSnapshotBlock data={section.dataSnapshot} /> : null}
           {section.video ? <StoryVideoBand video={section.video} /> : null}
           {section.diagram ? <StoryDiagram id={section.diagram} /> : null}
         </div>

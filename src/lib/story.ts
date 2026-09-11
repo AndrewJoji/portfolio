@@ -17,6 +17,34 @@ export type StoryProperty = { key: string; value: string };
 
 export type StoryLink = { label: string; href: string };
 
+export type DataSnapshotSchemaRow = { field: string; quickFlips: string; catrp: string };
+
+export type DataSnapshotStatRow = {
+  source: string;
+  skus: string;
+  categories: string;
+  date: string;
+};
+
+export type DataSnapshotPriceRow = {
+  item: string;
+  platform: string;
+  qfPrice: string;
+  catrpPrice: string;
+  delta: string;
+};
+
+export type StoryDataSnapshot = {
+  heading: string;
+  intro?: string;
+  schemaComparison: DataSnapshotSchemaRow[];
+  stats: DataSnapshotStatRow[];
+  priceComparison: DataSnapshotPriceRow[];
+  priceNote: string;
+  insight: string;
+  coverageGap: string;
+};
+
 export type StorySection = {
   heading?: string;
   paragraphs: string[];
@@ -29,4 +57,9 @@ export type StorySection = {
   link?: StoryLink;
   gallery?: MediaItem[];
   galleryHeading?: string;
+  dataSnapshot?: StoryDataSnapshot;
 };
+
+export function firstStoryDiagram(story?: StorySection[]): StoryDiagramId | undefined {
+  return story?.find((section) => section.diagram)?.diagram;
+}

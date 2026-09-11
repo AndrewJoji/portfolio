@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import { StoryDiagramSvg } from "@/components/story-diagram";
 import { getLocalMedia } from "@/lib/local-media";
 import { findImage } from "@/lib/site-image";
 import { projects } from "@/lib/projects";
+import { firstStoryDiagram } from "@/lib/story";
 
 export function Projects() {
   return (
@@ -16,6 +18,7 @@ export function Projects() {
             (m) => m.type === "image",
           );
           const image = firstLocalImage?.src ?? findImage("projects", project.slug);
+          const diagram = image ? undefined : firstStoryDiagram(project.story);
 
           return (
             <Link
@@ -25,7 +28,7 @@ export function Projects() {
             >
               <div
                 className="relative flex h-[190px] items-center justify-center text-sm text-foreground/70"
-                style={image ? undefined : { background: project.tint }}
+                style={image || diagram ? undefined : { background: project.tint }}
               >
                 {image ? (
                   <Image
@@ -35,6 +38,10 @@ export function Projects() {
                     sizes="(min-width: 1024px) 33vw, 90vw"
                     className="object-cover"
                   />
+                ) : diagram ? (
+                  <div className="flex h-full w-full items-center justify-center bg-background px-8 py-6">
+                    <StoryDiagramSvg id={diagram} />
+                  </div>
                 ) : (
                   "[project image]"
                 )}
