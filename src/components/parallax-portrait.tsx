@@ -17,11 +17,16 @@ export function ParallaxPortrait({ src, alt }: { src: string; alt: string }) {
       const img = imgRef.current;
       if (!img) return;
       // Scaling creates a fixed overflow margin around the container; clamp
-      // the shift to that margin so the image never pulls away from the
-      // container edge and exposes blank space behind it.
-      const maxOffset = ((SCALE - 1) / 2) * img.offsetHeight;
-      const offset = Math.min(window.scrollY * PARALLAX_FACTOR, maxOffset);
-      img.style.transform = `scale(${SCALE}) translateY(${offset}px)`;
+      // the on-screen shift to that margin so the image never pulls away
+      // from the container edge and exposes blank space behind it. Since
+      // translateY is applied inside the already-scaled coordinate space
+      // (transform functions compose left-to-right), it moves SCALE times
+      // further on screen than the value itself -- divide back down so the
+      // clamp and the real pixel movement agree.
+      const maxRealOffset = ((SCALE - 1) / 2) * img.offsetHeight;
+      const realOffset = Math.min(window.scrollY * PARALLAX_FACTOR, maxRealOffset);
+      const translateY = realOffset / SCALE;
+      img.style.transform = `scale(${SCALE}) translateY(${translateY}px)`;
       ticking = false;
     }
 
