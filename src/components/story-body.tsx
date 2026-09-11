@@ -31,11 +31,10 @@ export function StoryBody({
 }) {
   const sectionBlocks = blockIndices(story);
   const inlineSrcs = new Set(
-    story.flatMap((section) =>
-      [...(section.images ?? []), ...(section.gallery ?? [])].flatMap((m) =>
-        m.type === "youtube" ? [] : [m.src],
-      ),
-    ),
+    story.flatMap((section) => [
+      ...(section.images ?? []).flatMap((m) => (m.type === "youtube" ? [] : [m.src])),
+      ...(section.gallery ?? []).map((m) => m.src),
+    ]),
   );
   const remainingMedia = localMedia.filter(
     (m) => m.type === "youtube" || !inlineSrcs.has(m.src),

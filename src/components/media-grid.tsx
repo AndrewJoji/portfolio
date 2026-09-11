@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import type { MediaItem } from "@/lib/media";
+import type { GalleryItem } from "@/lib/story";
 
 function Icon({ path }: { path: string }) {
   return (
@@ -21,23 +21,41 @@ function Icon({ path }: { path: string }) {
   );
 }
 
-export function MediaGrid({ heading, media }: { heading?: string; media: MediaItem[] }) {
+export function MediaGrid({ heading, media }: { heading?: string; media: GalleryItem[] }) {
+  const categories = useMemo(() => {
+    const seen: string[] = [];
+    for (const item of media) {
+      if (!seen.includes(item.category)) seen.push(item.category);
+    }
+    return seen;
+  }, [media]);
+
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const filtered = activeCategory ? media.filter((m) => m.category === activeCategory) : media;
 
   useEffect(() => {
     if (openIndex === null) return;
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") setOpenIndex(null);
-      if (e.key === "ArrowLeft") setOpenIndex((i) => (i === null ? i : (i - 1 + media.length) % media.length));
-      if (e.key === "ArrowRight") setOpenIndex((i) => (i === null ? i : (i + 1) % media.length));
+      if (e.key === "ArrowLeft")
+        setOpenIndex((i) => (i === null ? i : (i - 1 + filtered.length) % filtered.length));
+      if (e.key === "ArrowRight")
+        setOpenIndex((i) => (i === null ? i : (i + 1) % filtered.length));
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [openIndex, media.length]);
+  }, [openIndex, filtered.length]);
 
   if (media.length === 0) return null;
 
-  const current = openIndex === null ? null : media[openIndex];
+  const current = openIndex === null ? null : filtered[openIndex];
+
+  function selectCategory(category: string | null) {
+    setActiveCategory(category);
+    setOpenIndex(null);
+  }
 
   return (
     <div className="my-10 max-w-3xl">
@@ -46,28 +64,57 @@ export function MediaGrid({ heading, media }: { heading?: string; media: MediaIt
           {heading}
         </div>
       ) : null}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-        {media.map((item, i) => (
+
+      {categories.length > 1 ? (
+        <div className="mb-4 flex flex-wrap gap-2">
           <button
-            key={item.type === "youtube" ? item.youtubeId : item.src}
+            type="button"
+            onClick={() => selectCategory(null)}
+            className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
+              activeCategory === null
+                ? "bg-accent text-background"
+                : "bg-card text-muted hover:text-foreground"
+            }`}
+          >
+            All ({media.length})
+          </button>
+          {categories.map((category) => (
+            <button
+              key={category}
+              type="button"
+              onClick={() => selectCategory(category)}
+              className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
+                activeCategory === category
+                  ? "bg-accent text-background"
+                  : "bg-card text-muted hover:text-foreground"
+              }`}
+            >
+              {category} ({media.filter((m) => m.category === category).length})
+            </button>
+          ))}
+        </div>
+      ) : null}
+
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        {filtered.map((item, i) => (
+          <button
+            key={item.src}
             type="button"
             onClick={() => setOpenIndex(i)}
             className="group relative aspect-square overflow-hidden rounded-xl bg-card"
           >
-            {item.type === "youtube" ? null : (
-              <Image
-                src={item.src}
-                alt={item.alt}
-                fill
-                sizes="(min-width: 640px) 33vw, 50vw"
-                className="object-cover transition-transform duration-200 group-hover:scale-105"
-              />
-            )}
+            <Image
+              src={item.src}
+              alt={item.alt}
+              fill
+              sizes="(min-width: 640px) 33vw, 50vw"
+              className="object-cover transition-transform duration-200 group-hover:scale-105"
+            />
           </button>
         ))}
       </div>
 
-      {current && current.type !== "youtube" ? (
+      {current ? (
         <div
           className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background/95 p-4 backdrop-blur-sm"
           onClick={() => setOpenIndex(null)}
@@ -85,7 +132,7 @@ export function MediaGrid({ heading, media }: { heading?: string; media: MediaIt
             type="button"
             onClick={(e) => {
               e.stopPropagation();
-              setOpenIndex((i) => (i === null ? i : (i - 1 + media.length) % media.length));
+              setOpenIndex((i) => (i === null ? i : (i - 1 + filtered.length) % filtered.length));
             }}
             aria-label="Previous"
             className="absolute top-1/2 left-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-card text-foreground shadow sm:left-6"
@@ -96,7 +143,7 @@ export function MediaGrid({ heading, media }: { heading?: string; media: MediaIt
             type="button"
             onClick={(e) => {
               e.stopPropagation();
-              setOpenIndex((i) => (i === null ? i : (i + 1) % media.length));
+              setOpenIndex((i) => (i === null ? i : (i + 1) % filtered.length));
             }}
             aria-label="Next"
             className="absolute top-1/2 right-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-card text-foreground shadow sm:right-6"
@@ -117,9 +164,9 @@ export function MediaGrid({ heading, media }: { heading?: string; media: MediaIt
               className="object-contain"
             />
           </div>
-          {current.alt ? (
-            <div className="mt-4 max-w-2xl text-center text-sm text-muted">{current.alt}</div>
-          ) : null}
+          <div className="mt-4 max-w-2xl text-center text-sm text-muted">
+            <span className="text-accent">{current.category}</span> &middot; {current.alt}
+          </div>
         </div>
       ) : null}
     </div>
