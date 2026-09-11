@@ -131,6 +131,7 @@ export const experience: ExperienceEntry[] = [
         paragraphs: [
           "I started on eBay alone. Then I made connections with wholesale buyers in the US who sold on Amazon at a much larger scale — a volume game with thinner margins, but access to a market I couldn't reach on my own. I built a streamlined sourcing process around exactly what worked for them: one wholesaler starting November 2024, a second in January 2025. To decide where inventory should go each month, I built a small internal tool that compared both buyers' pricing offers side by side. At its peak, wholesale made up 50-60% of my monthly revenue.",
         ],
+        link: { label: "Visit the itsWorthIt eBay store", href: "https://www.ebay.ca/str/itsworthit" },
         video: {
           title: "Wholesale batch shipped to CATRP Crew (US)",
           youtubeId: "AmEmPiLSEQY",

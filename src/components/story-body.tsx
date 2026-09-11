@@ -59,6 +59,16 @@ export function StoryBody({
               </p>
             ))}
           </div>
+          {section.link ? (
+            <a
+              href={section.link.href}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-block text-sm font-medium text-accent"
+            >
+              {section.link.label} &rarr;
+            </a>
+          ) : null}
           {section.quote ? (
             <StoryQuoteBlock label={section.quote.label}>
               <ReadableText

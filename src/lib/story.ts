@@ -15,6 +15,8 @@ export type StoryQuote = {
 
 export type StoryProperty = { key: string; value: string };
 
+export type StoryLink = { label: string; href: string };
+
 export type StorySection = {
   heading?: string;
   paragraphs: string[];
@@ -24,4 +26,5 @@ export type StorySection = {
   imagesAspectRatio?: string;
   quote?: StoryQuote;
   properties?: StoryProperty[];
+  link?: StoryLink;
 };
