@@ -23,6 +23,25 @@ export type ExperienceEntry = {
 
 export const experience: ExperienceEntry[] = [
   {
+    slug: "programmer-analyst-ubc",
+    title: "Programmer Analyst (UBC Co-op)",
+    org: "UBC Student Housing & Community Services / UBC Bookstore",
+    location: "Vancouver, BC",
+    years: "Jan 2023 – Aug 2023",
+    bullets: [
+      "Analyzed legacy JNLP systems and led migration to a web-based platform using PHP (Yii2), JavaScript, jQuery, SSRS, and SQL, increasing accessibility and functionality metrics by 30% through requirements gathering and stakeholder alignment across departments.",
+      "Connected the new platform to live MySQL data tables, implementing pagination to support real-time access to housing and work order records.",
+      "Designed and implemented a RESTful API integrating student information and bookstore systems, maintaining backward compatibility and passing all acceptance testing with Postman.",
+      "Led onboarding and training for frontline housekeeping staff onto a newly migrated, browser-based work order system, enabling on-the-go access to the database and work orders on iPads.",
+      "Supported the UBC Bookstore's migration to new enterprise software and to Workday Student, providing first point of contact technical support and troubleshooting for non-technical staff.",
+      "Managed a VDI migration for 20+ desktops and reduced high-level support requests by 40% through proactive stakeholder communication and thorough documentation maintained on Confluence.",
+    ],
+    video: {
+      title: "Programmer Analyst Co-Op \"Day in my Life\"",
+      youtubeId: "TVAfr5lGLkY",
+    },
+  },
+  {
     slug: "software-developer-extern-pwc",
     title: "Software Developer Extern",
     org: "PricewaterhouseCoopers (UBC Industry Applications Program)",
@@ -34,18 +53,6 @@ export const experience: ExperienceEntry[] = [
       "Collaborated with stakeholders to define system requirements and ensure deliverables aligned with organizational objectives.",
       "Integrated a Vertex AI generative chatbot for incident trend analysis, improving query response efficiency by 25%.",
       "Presented project progress and the business case directly to senior stakeholders, translating technical work into terms a business audience could act on.",
-    ],
-  },
-  {
-    slug: "line-producer",
-    title: "Line Producer",
-    org: "Independent Feature Film",
-    location: "Vancouver, BC",
-    years: "Apr 2026 – Present",
-    bullets: [
-      "Manage a $12,000 production budget and negotiate 10+ vendor and location contracts, tracking spend against forecast.",
-      "Coordinate a 20-person cast and crew across multiple shoot locations, keeping the project on schedule and on budget under tight deadlines.",
-      "Build new outreach and follow-up relationships from scratch for each new location.",
     ],
   },
   {
@@ -114,6 +121,18 @@ export const experience: ExperienceEntry[] = [
     ],
   },
   {
+    slug: "line-producer",
+    title: "Line Producer",
+    org: "Independent Feature Film",
+    location: "Vancouver, BC",
+    years: "Apr 2026 – Present",
+    bullets: [
+      "Manage a $12,000 production budget and negotiate 10+ vendor and location contracts, tracking spend against forecast.",
+      "Coordinate a 20-person cast and crew across multiple shoot locations, keeping the project on schedule and on budget under tight deadlines.",
+      "Build new outreach and follow-up relationships from scratch for each new location.",
+    ],
+  },
+  {
     slug: "tech-volunteer-ewb",
     title: "Tech Volunteer",
     org: "Education without Borders (EwB)",
@@ -123,25 +142,6 @@ export const experience: ExperienceEntry[] = [
       "Collaborate with the EwB tech team to manage ticketing and sales channels for the South African Film Festival (SAFF 2026) on the Eventive platform.",
       "Work closely with the film selection committee to upload films, verify credits, and coordinate media kits for accurate event listings.",
     ],
-  },
-  {
-    slug: "programmer-analyst-ubc",
-    title: "Programmer Analyst (UBC Co-op)",
-    org: "UBC Student Housing & Community Services / UBC Bookstore",
-    location: "Vancouver, BC",
-    years: "Jan 2023 – Aug 2023",
-    bullets: [
-      "Analyzed legacy JNLP systems and led migration to a web-based platform using PHP (Yii2), JavaScript, jQuery, SSRS, and SQL, increasing accessibility and functionality metrics by 30% through requirements gathering and stakeholder alignment across departments.",
-      "Connected the new platform to live MySQL data tables, implementing pagination to support real-time access to housing and work order records.",
-      "Designed and implemented a RESTful API integrating student information and bookstore systems, maintaining backward compatibility and passing all acceptance testing with Postman.",
-      "Led onboarding and training for frontline housekeeping staff onto a newly migrated, browser-based work order system, enabling on-the-go access to the database and work orders on iPads.",
-      "Supported the UBC Bookstore's migration to new enterprise software and to Workday Student, providing first point of contact technical support and troubleshooting for non-technical staff.",
-      "Managed a VDI migration for 20+ desktops and reduced high-level support requests by 40% through proactive stakeholder communication and thorough documentation maintained on Confluence.",
-    ],
-    video: {
-      title: "Programmer Analyst Co-Op \"Day in my Life\"",
-      youtubeId: "TVAfr5lGLkY",
-    },
   },
   {
     slug: "vp-finance-administration",
