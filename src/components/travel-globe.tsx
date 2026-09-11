@@ -77,7 +77,12 @@ export function TravelGlobe() {
   const [sliderValue, setSliderValue] = useState(0);
   const jumpRef = useRef<number | null>(null);
   const hasInteractedRef = useRef(false);
-  const planePos = positionAlongRoute(sliderValue);
+  // A single stable object (never replaced, only its fields updated) so
+  // react-globe.gl treats every frame as a cheap position/rotation update
+  // instead of tearing down and rebuilding the plane mesh — that rebuild
+  // churn was the source of the choppiness.
+  const [planePos] = useState<PlanePos>(() => positionAlongRoute(0));
+  Object.assign(planePos, positionAlongRoute(sliderValue));
 
   useEffect(() => {
     const el = containerRef.current;
@@ -112,10 +117,10 @@ export function TravelGlobe() {
     if (sliderValue !== 0) hasInteractedRef.current = true;
     if (!hasInteractedRef.current) return;
     (g.controls() as OrbitControls).autoRotate = false;
-    g.pointOfView(
-      { lat: planePos.lat, lng: planePos.lng, altitude: FOLLOW_ALTITUDE },
-      350,
-    );
+    // duration 0 = set directly; the plane position is already animating
+    // smoothly frame-by-frame, so re-triggering an eased camera tween here
+    // on every tick would fight itself and look choppy.
+    g.pointOfView({ lat: planePos.lat, lng: planePos.lng, altitude: FOLLOW_ALTITUDE }, 0);
   }, [sliderValue, planePos.lat, planePos.lng]);
 
   useEffect(() => {
