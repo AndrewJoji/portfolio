@@ -99,12 +99,48 @@ export const projects: ProjectEntry[] = [
         paragraphs: [
           "I shoot photos in one session, with a spacer photo — my hand, or a blank card — between items. The pipeline sorts by EXIF timestamp and splits on those spacers to reconstruct per-item groups automatically, then reads box art, cartridge labels, disc printing, and barcodes to identify title, platform, region, and edition — barcodes win over label text whenever they disagree. From there it assesses condition (complete-in-box, loose, sealed, and so on) and moves on to pricing and drafting the listing.",
         ],
+        images: [
+          {
+            type: "image",
+            src: "/projects/ebay-listing-assistant/01-item photo - 007 Agent Under Fire.jpg",
+            alt: "Item photo group: 007 Agent Under Fire case and manual",
+          },
+          {
+            type: "image",
+            src: "/projects/ebay-listing-assistant/02-spacer photo between items.jpg",
+            alt: "Spacer photo shot between items to split the session",
+          },
+          {
+            type: "image",
+            src: "/projects/ebay-listing-assistant/03-item photo - Rygar.jpg",
+            alt: "Item photo group: Rygar case and manual",
+          },
+        ],
         diagram: "listing-pipeline",
       },
       {
         heading: "Pricing it right",
         paragraphs: [
           "Pricing comes from PriceCharting's quoted value rather than averaging raw sold listings — a single quoted price holds up better against outliers than a handful of scattered comps. Items missing a manual get priced at the midpoint between loose and complete. Everything converts to CAD, and if the comp data is thin or inconsistent, the pipeline flags it for me instead of guessing.",
+        ],
+        images: [
+          {
+            type: "image",
+            src: "/projects/ebay-listing-assistant/04-pricecharting-007-agent-under-fire.png",
+            alt: "PriceCharting page for 007: Agent Under Fire (PS2), showing quoted prices by condition",
+          },
+        ],
+        properties: [
+          { key: "title", value: "007: Agent Under Fire" },
+          { key: "platform", value: "PlayStation 2" },
+          { key: "edition", value: "Greatest Hits" },
+          { key: "region", value: "NTSC-U/C" },
+          { key: "condition_tier", value: "CIB (complete-in-box)" },
+          { key: "id_signal", value: "barcode + box art match" },
+          { key: "price_source", value: "PriceCharting -> Complete price" },
+          { key: "price_usd", value: "$8.18" },
+          { key: "price_cad", value: "~$11.29 (converted)" },
+          { key: "category", value: "Video Games & Consoles > Video Games" },
         ],
       },
       {
@@ -172,9 +208,13 @@ export const projects: ProjectEntry[] = [
       {
         heading: "The film",
         paragraphs: [
-          "The Sins of Our Father is a non-union independent feature written and directed by Tibet Karayazgan, shot in Vancouver over a summer of alternating weekends. Logline: when his estranged kids reject his final plea, a dying hustler uses an enigmatic device to force his way back into their lives — triggering a chain reaction that forces him to confront a lifetime of guilt he's spent avoiding.",
+          "The Sins of Our Father is a non-union independent feature written and directed by Tibet Karayazgan, shot in Vancouver over a summer of alternating weekends.",
           "I came on as Line Producer, running the finance side of the production and picking up logistics — including shuttle runs and stepping into a couple of small day-player roles — wherever the shoot needed it.",
         ],
+        quote: {
+          label: "Logline",
+          text: "When his estranged kids reject his final plea, a dying hustler uses an enigmatic device to force his way back into their lives — triggering a chain reaction that forces him to confront a lifetime of guilt he's spent avoiding.",
+        },
       },
       {
         heading: "Budgeting it",

@@ -30,9 +30,11 @@ type Page = { key: string; blockTexts: string[] };
 // styling that don't map cleanly onto word-span rendering. Reading
 // starts at the first bullet or paragraph instead.
 function storyBlocks(story: StorySection[]): string[] {
-  return story.flatMap((section) =>
-    section.heading ? [section.heading, ...section.paragraphs] : section.paragraphs,
-  );
+  return story.flatMap((section) => {
+    const blocks = section.heading ? [section.heading, ...section.paragraphs] : [...section.paragraphs];
+    if (section.quote) blocks.push(section.quote.text);
+    return blocks;
+  });
 }
 
 const pages: Page[] = [

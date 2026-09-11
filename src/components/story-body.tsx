@@ -1,17 +1,20 @@
 import { MediaCarousel } from "@/components/media-carousel";
 import { ReadableText } from "@/components/readable-text";
 import { StoryDiagram } from "@/components/story-diagram";
+import { StoryProperties } from "@/components/story-properties";
+import { StoryQuoteBlock } from "@/components/story-quote";
 import { StoryVideoBand } from "@/components/story-video-band";
 import type { StorySection } from "@/lib/story";
 import type { MediaItem } from "@/lib/media";
 
 // Block indices must match the flattening order in scripts/generate-audio.mts
-// exactly: per section, heading (if present) then paragraphs, sections in order.
+// exactly: per section, heading (if present), then paragraphs, then quote text.
 function blockIndices(story: StorySection[]) {
   let next = 0;
   return story.map((section) => ({
     headingIndex: section.heading !== undefined ? next++ : undefined,
     paragraphIndices: section.paragraphs.map(() => next++),
+    quoteIndex: section.quote !== undefined ? next++ : undefined,
   }));
 }
 
@@ -25,6 +28,14 @@ export function StoryBody({
   mediaLabel?: string;
 }) {
   const sectionBlocks = blockIndices(story);
+  const inlineSrcs = new Set(
+    story.flatMap((section) =>
+      (section.images ?? []).flatMap((m) => (m.type === "youtube" ? [] : [m.src])),
+    ),
+  );
+  const remainingMedia = localMedia.filter(
+    (m) => m.type === "youtube" || !inlineSrcs.has(m.src),
+  );
 
   return (
     <>
@@ -48,17 +59,31 @@ export function StoryBody({
               </p>
             ))}
           </div>
+          {section.quote ? (
+            <StoryQuoteBlock label={section.quote.label}>
+              <ReadableText
+                blockIndex={sectionBlocks[i].quoteIndex!}
+                fallback={section.quote.text}
+              />
+            </StoryQuoteBlock>
+          ) : null}
+          {section.images && section.images.length > 0 ? (
+            <div className="my-10 max-w-2xl">
+              <MediaCarousel media={section.images} />
+            </div>
+          ) : null}
+          {section.properties ? <StoryProperties properties={section.properties} /> : null}
           {section.video ? <StoryVideoBand video={section.video} /> : null}
           {section.diagram ? <StoryDiagram id={section.diagram} /> : null}
         </div>
       ))}
 
-      {localMedia.length > 0 ? (
+      {remainingMedia.length > 0 ? (
         <div className="mt-4 max-w-2xl">
           <div className="mb-3 text-xs font-medium tracking-[0.12em] text-muted uppercase">
             {mediaLabel}
           </div>
-          <MediaCarousel media={localMedia} />
+          <MediaCarousel media={remainingMedia} />
         </div>
       ) : null}
     </>
