@@ -4,6 +4,12 @@ export type ExperienceVideo = {
   start?: number;
 };
 
+export type StorySection = {
+  heading?: string;
+  paragraphs: string[];
+  video?: ExperienceVideo;
+};
+
 export type ExperienceEntry = {
   slug: string;
   title: string;
@@ -12,6 +18,7 @@ export type ExperienceEntry = {
   years: string;
   bullets: string[];
   video?: ExperienceVideo;
+  story?: StorySection[];
 };
 
 export const experience: ExperienceEntry[] = [
@@ -55,11 +62,56 @@ export const experience: ExperienceEntry[] = [
       "Manage the full customer lifecycle end to end, including buyer communication, dispute resolution, and post-sale follow-up, prioritizing fair pricing and long-term relationships over one-off wins.",
       "Conduct ongoing market research and competitive analysis to inform data-driven pricing and inventory decisions.",
     ],
-    video: {
-      title: "Wholesale batch shipped to CATRP Crew (US)",
-      youtubeId: "AmEmPiLSEQY",
-      start: 634,
-    },
+    story: [
+      {
+        heading: "Finding the deal",
+        paragraphs: [
+          "It started with Facebook Marketplace and a fascination with arbitrage — the instinct for spotting a good deal before anyone else did. That turned into a business once I recognized what I could actually offer collectors: quality product, fair prices, and service people could trust. I'd followed creators like CATRP Crew and QuickFlips for years and enjoyed watching their journeys in the space; I experimented with vintage toys too, but retro games were the closer fit for what I actually cared about.",
+          "What kept me in it was less the games themselves and more the logistics — planning, problem-solving, finding efficiencies like shipping consolidators and passing the savings on, and building a process that mixed a personal touch with something repeatable.",
+        ],
+      },
+      {
+        heading: "Going wholesale",
+        paragraphs: [
+          "I started on eBay alone. Then I made connections with wholesale buyers in the US who sold on Amazon at a much larger scale — a volume game with thinner margins, but access to a market I couldn't reach on my own. I built a streamlined sourcing process around exactly what worked for them: one wholesaler starting November 2024, a second in January 2025. To decide where inventory should go each month, I built a small internal tool that compared both buyers' pricing offers side by side. At its peak, wholesale made up 50-60% of my monthly revenue.",
+        ],
+        video: {
+          title: "Wholesale batch shipped to CATRP Crew (US)",
+          youtubeId: "AmEmPiLSEQY",
+          start: 634,
+        },
+      },
+      {
+        paragraphs: [
+          "Sourcing changed too — I started with individual marketplace finds and moved into buying entire collections. Some of those meant a lot to the people I bought from.",
+          "I also built relationships with other local vendors — trades, referrals, win-win deals instead of competing over the same buyers. Business isn't zero-sum. Relationships are what actually run it.",
+        ],
+        video: {
+          title: "A collector on what one piece of his collection meant to him",
+          youtubeId: "Tgoo2N3Pkuw",
+        },
+      },
+      {
+        heading: "When tariffs hit",
+        paragraphs: [
+          "As tariffs became more prominent, the wholesale channel got harder — shipping options shrank and costs climbed. I adapted where I could: leaned harder into local connections and convention sales, and got smarter about what actually crossed the border. Consoles and handhelds are mostly made in China, so I traded those away locally for games made in the US, Japan, and Canada instead — lighter tariff exposure, still valuable inventory to send wholesale.",
+          "The stream kept narrowing anyway. I shipped my last wholesale batch in December 2025 and shifted focus back to local sales, eBay, and conventions.",
+        ],
+      },
+      {
+        heading: "Where it's headed",
+        paragraphs: [
+          "There are new shipping options I'm exploring now that might reopen that channel. In the meantime, I've slowed down buying to liquidate what I already have and leaned into higher-end sales — bigger upfront cost, but a better payout for the time it takes.",
+          "I've also been automating what I can. The eBay listing tool I built — one of the projects on the homepage — exists because I'd rather spend my time sourcing and building relationships than on repetitive manual listing work.",
+        ],
+      },
+      {
+        heading: "What I'd tell someone starting out",
+        paragraphs: [
+          "You learn more by doing than by planning. Don't lean on one sales channel — it's easier to disrupt than you'd think. The best price doesn't sell itself; you still have to sell the story and give people a reason to buy from you. And rejection isn't the end of a lead, just a redirect — sales is a skill that keeps paying off, everywhere, if you keep at it.",
+        ],
+      },
+    ],
   },
   {
     slug: "tech-volunteer-ewb",
