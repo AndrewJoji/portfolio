@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
-const SCALE = 1.15;
+const SCALE = 1.35;
 const ORIGIN = "50% 50%";
 const PARALLAX_FACTOR = 0.15;
 
@@ -14,10 +14,14 @@ export function ParallaxPortrait({ src, alt }: { src: string; alt: string }) {
     let ticking = false;
 
     function update() {
-      if (imgRef.current) {
-        const offset = window.scrollY * PARALLAX_FACTOR;
-        imgRef.current.style.transform = `scale(${SCALE}) translateY(${offset}px)`;
-      }
+      const img = imgRef.current;
+      if (!img) return;
+      // Scaling creates a fixed overflow margin around the container; clamp
+      // the shift to that margin so the image never pulls away from the
+      // container edge and exposes blank space behind it.
+      const maxOffset = ((SCALE - 1) / 2) * img.offsetHeight;
+      const offset = Math.min(window.scrollY * PARALLAX_FACTOR, maxOffset);
+      img.style.transform = `scale(${SCALE}) translateY(${offset}px)`;
       ticking = false;
     }
 
@@ -30,7 +34,11 @@ export function ParallaxPortrait({ src, alt }: { src: string; alt: string }) {
 
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
   return (
