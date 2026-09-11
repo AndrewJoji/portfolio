@@ -26,13 +26,19 @@ function captionFor(item: MediaItem) {
   return item.type === "youtube" ? item.title : item.alt;
 }
 
-export function MediaCarousel({ media }: { media: MediaItem[] }) {
+export function MediaCarousel({
+  media,
+  emptyHint,
+}: {
+  media: MediaItem[];
+  emptyHint?: string;
+}) {
   const [index, setIndex] = useState(0);
 
   if (media.length === 0) {
     return (
       <div className="flex aspect-video items-center justify-center rounded-2xl bg-card text-sm text-muted">
-        [Add photos or videos to public/experience/&lt;slug&gt;]
+        {emptyHint ?? "[Add photos or videos]"}
       </div>
     );
   }
