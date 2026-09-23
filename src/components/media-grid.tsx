@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import type { GalleryItem } from "@/lib/story";
+import { useSwipe } from "@/lib/use-swipe";
 
 function Icon({ path }: { path: string }) {
   return (
@@ -34,6 +35,20 @@ export function MediaGrid({ heading, media }: { heading?: string; media: Gallery
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const filtered = activeCategory ? media.filter((m) => m.category === activeCategory) : media;
+  const showPrev = () =>
+    setOpenIndex((i) => (i === null ? i : (i - 1 + filtered.length) % filtered.length));
+  const showNext = () => setOpenIndex((i) => (i === null ? i : (i + 1) % filtered.length));
+  const swipe = useSwipe(showPrev, showNext);
+  const isOpen = openIndex !== null;
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     if (openIndex === null) return;
@@ -72,8 +87,8 @@ export function MediaGrid({ heading, media }: { heading?: string; media: Gallery
             onClick={() => selectCategory(null)}
             className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
               activeCategory === null
-                ? "bg-accent text-background"
-                : "bg-card text-muted hover:text-foreground"
+                ? "bg-accent text-accent-foreground"
+                : "border border-border bg-card text-muted hover:text-foreground"
             }`}
           >
             All ({media.length})
@@ -85,8 +100,8 @@ export function MediaGrid({ heading, media }: { heading?: string; media: Gallery
               onClick={() => selectCategory(category)}
               className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
                 activeCategory === category
-                  ? "bg-accent text-background"
-                  : "bg-card text-muted hover:text-foreground"
+                  ? "bg-accent text-accent-foreground"
+                  : "border border-border bg-card text-muted hover:text-foreground"
               }`}
             >
               {category} ({media.filter((m) => m.category === category).length})
@@ -118,6 +133,7 @@ export function MediaGrid({ heading, media }: { heading?: string; media: Gallery
         <div
           className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background/95 p-4 backdrop-blur-sm"
           onClick={() => setOpenIndex(null)}
+          {...swipe}
         >
           <button
             type="button"
@@ -132,7 +148,7 @@ export function MediaGrid({ heading, media }: { heading?: string; media: Gallery
             type="button"
             onClick={(e) => {
               e.stopPropagation();
-              setOpenIndex((i) => (i === null ? i : (i - 1 + filtered.length) % filtered.length));
+              showPrev();
             }}
             aria-label="Previous"
             className="absolute top-1/2 left-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-card text-foreground shadow sm:left-6"
@@ -143,7 +159,7 @@ export function MediaGrid({ heading, media }: { heading?: string; media: Gallery
             type="button"
             onClick={(e) => {
               e.stopPropagation();
-              setOpenIndex((i) => (i === null ? i : (i + 1) % filtered.length));
+              showNext();
             }}
             aria-label="Next"
             className="absolute top-1/2 right-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-card text-foreground shadow sm:right-6"

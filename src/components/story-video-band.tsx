@@ -3,7 +3,7 @@ import type { StoryVideo } from "@/lib/story";
 export function StoryVideoBand({ video }: { video: StoryVideo }) {
   return (
     <div className="my-10 max-w-5xl">
-      <div className="relative aspect-video overflow-hidden rounded-3xl bg-card shadow-[0_14px_32px_-18px_oklch(35%_0.04_50_/_0.6)]">
+      <div className="relative aspect-video overflow-hidden rounded-3xl border border-border bg-card shadow-card">
         {video.youtubeId ? (
           <iframe
             src={`https://www.youtube.com/embed/${video.youtubeId}${video.start ? `?start=${video.start}` : ""}`}

@@ -8,11 +8,12 @@ import { firstStoryDiagram } from "@/lib/story";
 
 export function Projects() {
   return (
-    <section id="work" className="px-8 py-16 sm:px-20 sm:py-24">
-      <div className="mb-8 text-xs font-medium tracking-[0.12em] text-muted uppercase">
-        Selected work
+    <section id="work" className="scroll-mt-24 px-8 py-16 sm:px-20 sm:py-24">
+      <div className="mb-6 flex flex-wrap items-end justify-between gap-2">
+        <h2 className="text-2xl font-semibold tracking-tight">Selected work</h2>
+        <span className="text-sm text-muted">Software, business, film</span>
       </div>
-      <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => {
           const firstLocalImage = getLocalMedia("projects", project.slug).find(
             (m) => m.type === "image",
@@ -24,10 +25,10 @@ export function Projects() {
             <Link
               key={project.slug}
               href={`/projects/${project.slug}`}
-              className="group overflow-hidden rounded-2xl bg-card shadow-[0_10px_28px_-20px_oklch(35%_0.04_50_/_0.55)] transition-shadow hover:shadow-[0_14px_32px_-18px_oklch(35%_0.04_50_/_0.6)]"
+              className="group flex flex-col rounded-2xl border border-border bg-card p-3 shadow-card transition-shadow hover:shadow-card-hover"
             >
               <div
-                className="relative flex h-[190px] items-center justify-center text-sm text-foreground/70"
+                className="relative flex h-[190px] items-center justify-center overflow-hidden rounded-xl text-sm text-foreground/70"
                 style={image || diagram ? undefined : { background: project.tint }}
               >
                 {image ? (
@@ -36,26 +37,35 @@ export function Projects() {
                     alt={project.title}
                     fill
                     sizes="(min-width: 1024px) 33vw, 90vw"
-                    className="object-cover"
+                    className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                   />
                 ) : diagram ? (
-                  <div className="flex h-full w-full items-center justify-center bg-background px-8 py-6">
+                  <div className="flex h-full w-full items-center justify-center bg-panel px-8 py-6">
                     <StoryDiagramSvg id={diagram} />
                   </div>
                 ) : (
                   "[project image]"
                 )}
               </div>
-              <div className="p-6">
-                <div className="text-lg font-semibold group-hover:underline">
+              <div className="flex flex-1 flex-col px-3 pt-4 pb-3">
+                <div className="text-lg font-semibold tracking-tight">
                   {project.title}
                 </div>
                 <div className="mt-2 text-sm leading-relaxed text-muted">
                   {project.summary}
                 </div>
-                <div className="mt-3 text-xs text-muted">{project.tags}</div>
-                <div className="mt-4 text-sm font-medium text-accent">
-                  View project &rarr;
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {project.tags.split(" · ").map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-border bg-background px-2.5 py-0.5 text-xs text-muted"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-auto pt-5 text-sm font-medium text-accent">
+                  View project <span className="inline-block transition-transform group-hover:translate-x-0.5">&rarr;</span>
                 </div>
               </div>
             </Link>

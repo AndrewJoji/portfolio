@@ -54,7 +54,7 @@ export function AudioPlayer() {
         type="button"
         onClick={reader.toggle}
         aria-label={reader.isPlaying ? "Pause reading" : "Read this page aloud"}
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-background"
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-accent-foreground"
       >
         {reader.isPlaying ? <PauseIcon /> : <PlayIcon />}
       </button>
