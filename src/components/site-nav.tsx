@@ -2,8 +2,9 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const links = [
-  { href: "/#work", label: "Work" },
-  { href: "/#about", label: "About" },
+  { href: "/#work", label: "Work", hideOnMobile: true },
+  { href: "/#about", label: "About", hideOnMobile: true },
+  { href: "/workshop", label: "Workshop", hideOnMobile: false },
 ];
 
 export function SiteNav() {
@@ -18,7 +19,7 @@ export function SiteNav() {
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-lg px-2 py-2 transition-colors sm:px-3 hover:text-foreground"
+              className={`rounded-lg px-2 py-2 transition-colors sm:block sm:px-3 hover:text-foreground ${link.hideOnMobile ? "hidden" : ""}`}
             >
               {link.label}
             </Link>

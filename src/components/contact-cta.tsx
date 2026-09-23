@@ -2,7 +2,7 @@ export function ContactCta() {
   return (
     <section
       id="contact"
-      className="relative mx-8 mb-16 flex scroll-mt-24 flex-col gap-8 overflow-hidden rounded-3xl border border-border bg-card bg-[radial-gradient(closest-side_at_85%_20%,var(--glow-1),transparent_70%)] px-8 py-12 shadow-card sm:mx-20 sm:mb-24 sm:flex-row sm:items-center sm:justify-between sm:px-14 sm:py-16"
+      className="mx-8 mb-16 flex scroll-mt-24 flex-col gap-8 rounded-3xl border border-border bg-card px-8 py-12 shadow-card sm:mx-20 sm:mb-24 sm:flex-row sm:items-center sm:justify-between sm:px-14 sm:py-16"
     >
       <div className="max-w-lg text-3xl font-semibold leading-tight tracking-[-0.03em] sm:text-4xl">
         Let&rsquo;s build something worth shipping.

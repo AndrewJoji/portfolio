@@ -24,17 +24,14 @@ export default function AboutPage() {
 
         <div className="mt-10 flex max-w-2xl flex-col gap-4 text-lg leading-relaxed text-muted">
           <p>
-            I was born in South Africa, into a family from Kerala, in South
-            India. My childhood moved with my family&rsquo;s work: Saudi
-            Arabia from 2004 to 2010, then Qatar from 2010 to 2021 &mdash;
-            most of my adolescence happened in Doha. In 2021 I moved to
-            Vancouver, BC to study Computer Science at the University of
-            British Columbia, and it&rsquo;s where I&rsquo;m based now.
+            Growing up between countries often meant starting over &mdash;
+            new schools, new friend groups, new ways of doing things. It also
+            meant &ldquo;home&rdquo; was never a simple answer. I always felt
+            a little out of place wherever I was, because I was never
+            completely from there.
           </p>
           <p>
-            Moving between countries that often meant starting over &mdash;
-            new schools, new friend groups, new ways of doing things. That
-            constant resetting shaped how I see the world: I value diversity
+            That constant resetting shaped how I see the world: I value diversity
             of thought and experience as a real asset, not just a nice idea
             &mdash; it&rsquo;s easier to get to a good answer when you&rsquo;ve
             seen a problem from more than one angle. I&rsquo;m a lifelong
