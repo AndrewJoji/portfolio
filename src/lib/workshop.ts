@@ -12,6 +12,18 @@ export type WorkshopTool = {
 
 export const workshopTools: WorkshopTool[] = [
   {
+    slug: "offcut",
+    title: "Offcut",
+    category: "Making",
+    status: "building",
+    summary:
+      "Turns scans and measurements of awkward spaces into buildable DIY woodworking plans, sized to the space, the materials on hand, and the tools available.",
+    features: [
+      "First builds: shelving for a basement stairwell and a bed platform for a 2006 Honda Odyssey",
+      "Demoed at Atelier's demoTASTIC Fall Lock-In, Vancouver, September 2026",
+    ],
+  },
+  {
     slug: "fishing-setup",
     title: "Fishing Setup Visualizer",
     category: "Fishing",

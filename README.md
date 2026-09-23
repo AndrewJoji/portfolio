@@ -33,7 +33,7 @@ Each experience and project has its own page built from structured content in `s
 Carousels and the lightbox can be browsed with the on-screen arrows or by swiping on touch screens. The lightbox also supports the ← / → keys and Esc, and the page behind it stays put while it's open.
 
 ### Workshop
-A `/workshop` page for small tools I'm building for my own life, grouped by area. Right now that's fishing (a setup visualizer, salmon species ID, and a regulations quiz) plus a wall-mounted iPad task board. Each tool is one entry in `src/lib/workshop.ts` with a status of idea, building or live. Adding an `href` turns its card into a link once the tool exists.
+A `/workshop` page for small tools I'm building for my own life, grouped by area. Right now that's Offcut (woodworking plans from scans of awkward spaces), fishing tools (a setup visualizer, salmon species ID, and a regulations quiz), and a wall-mounted iPad task board. Each tool is one entry in `src/lib/workshop.ts` with a status of idea, building or live. Adding an `href` turns its card into a link once the tool exists.
 
 ### Drop-in media
 Photos and videos placed in `public/projects/<slug>/` or `public/experience/<slug>/` are picked up automatically at build time. A numeric filename prefix (e.g. `01-`) sets the order, and the rest of the filename becomes the caption.
