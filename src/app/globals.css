@@ -1,13 +1,43 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
-  --background: oklch(97% 0.015 80);
-  --foreground: oklch(24% 0.02 50);
-  --muted: oklch(50% 0.03 50);
-  --card: oklch(99% 0.008 80);
-  --border: oklch(88% 0.02 70);
-  --accent: oklch(58% 0.13 40);
-  --panel: oklch(94% 0.025 70);
+  --background: #f7f7fa;
+  --foreground: #11131f;
+  --muted: #5d6279;
+  --card: #ffffff;
+  --border: #e7e8ef;
+  --accent: #5b4cf0;
+  --accent-foreground: #ffffff;
+  --accent-soft: #eeecff;
+  --panel: #efeff6;
+  --glow-1: rgb(91 76 240 / 0.16);
+  --glow-2: rgb(56 189 248 / 0.14);
+  --card-shadow: 0 1px 2px rgb(17 19 31 / 0.04), 0 12px 32px -20px rgb(17 19 31 / 0.18);
+  --card-shadow-hover: 0 1px 2px rgb(17 19 31 / 0.05), 0 18px 40px -18px rgb(17 19 31 / 0.26);
+  --portrait-from: #e3e0ff;
+  --portrait-to: #d6ecfb;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --background: #0b0c14;
+  --foreground: #eceef6;
+  --muted: #9aa0b8;
+  --card: #13151f;
+  --border: #262a3a;
+  --accent: #8e83ff;
+  --accent-foreground: #0b0c14;
+  --accent-soft: rgb(142 131 255 / 0.14);
+  --panel: #181b27;
+  --glow-1: rgb(142 131 255 / 0.18);
+  --glow-2: rgb(56 189 248 / 0.1);
+  --card-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -20px rgb(0 0 0 / 0.6);
+  --card-shadow-hover: 0 1px 2px rgb(0 0 0 / 0.35), 0 18px 40px -18px rgb(0 0 0 / 0.75);
+  --portrait-from: #221f45;
+  --portrait-to: #14283a;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -17,9 +47,13 @@
   --color-card: var(--card);
   --color-border: var(--border);
   --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
   --color-panel: var(--panel);
-  --font-sans: var(--font-karla);
-  --font-serif: var(--font-newsreader);
+  --shadow-card: var(--card-shadow);
+  --shadow-card-hover: var(--card-shadow-hover);
+  --font-sans: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
 }
 
 body {

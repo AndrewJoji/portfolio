@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# andrewjoji.com
 
-## Getting Started
+Personal portfolio for Andrew Joji — software engineer, founder, and film line producer. The site is built to show range: CS work, a business I run, film production, and volunteer work, each told as a short story rather than a list of bullets.
 
-First, run the development server:
+**Live:** [andrewjoji.com](https://andrewjoji.com)
+
+## Features
+
+### Read-aloud in my own voice
+Every page with long-form writing has an audio player that reads the page aloud in a voice cloned from a short recording of mine (via the ElevenLabs API).
+
+- **Word-by-word highlighting** follows the narration, so you can read along.
+- **Click any word** to jump the audio to that point.
+- Skip ±10s, scrub, and change speed (0.75×–2×).
+
+**Why:** this is an accessibility feature first. Some people are low-vision, some have dyslexia, and some just take things in better by listening. A portfolio is mostly reading, and I wanted it to work for those visitors too. Using my own voice instead of a stock one keeps it personal, since it's still me telling the story. Highlighting the words as they're read helps people follow along and find their place again, which plain audio doesn't do.
+
+The audio and word timings are **pre-generated** by a local script and committed as static files (`public/audio/**.mp3` + `.json`). The live site makes no text-to-speech API calls and holds no API keys, and playback is instant.
+
+### Night mode
+A toggle in the nav switches between light and dark themes. The site follows your system setting until you choose one, and then remembers your choice. A small inline script applies the theme before the first paint, so the page never flashes the wrong theme on load.
+
+### Interactive travel globe
+A 3D globe (`react-globe.gl` + three.js) traces where I've lived, from South Africa to Kerala, Saudi Arabia, Qatar, and Vancouver. A small plane flies the route. Use the timeline slider or click a pin to follow the story. The globe only loads when it scrolls into view to keep the first page load light.
+
+### Story pages for roles and projects
+Each experience and project has its own page built from structured content in `src/lib/`. A story can mix:
+- narrative sections, pull quotes, and key/value "properties" blocks
+- SVG architecture diagrams (theme-aware, redrawn in code rather than exported as images)
+- real data snapshots (e.g. the schema and price comparison from the wholesale pricing pipeline)
+- embedded YouTube videos, photo carousels, and a categorized photo gallery with a lightbox (e.g. film behind-the-scenes)
+
+### Drop-in media
+Photos and videos placed in `public/projects/<slug>/` or `public/experience/<slug>/` are picked up automatically at build time. A numeric filename prefix (e.g. `01-`) sets the order, and the rest of the filename becomes the caption.
+
+## Design
+
+The site uses a clean, product-style look: an off-white (or near-black in dark mode) background, rounded cards with soft shadows, pill tags, an indigo accent, and a faint indigo-to-sky glow behind the hero. It's set in **Geist** and **Geist Mono**.
+
+**Why:** the goal is for software, business, and film work to sit side by side without one style favoring any of them. The product-style look reads as polished and modern, and it matches the founder side. The neutral base lets photos from film sets and screenshots of dashboards both look at home.
+
+All colors are CSS variables in `src/app/globals.css`, exposed to Tailwind as `bg-card`, `text-muted`, `text-accent`, etc. Dark mode redefines those same variables under `[data-theme="dark"]`, so components are written once and work in both themes.
+
+## Tech stack
+
+- [Next.js](https://nextjs.org) (App Router), React 19, TypeScript (strict)
+- Tailwind CSS v4
+- `react-globe.gl` / three.js for the globe
+- ElevenLabs (offline, via scripts) for narration
+- Deployed on Vercel
+
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Before committing (these also run in CI on every PR):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Regenerating narration
 
-## Learn More
+Only needed after changing page copy that's read aloud (hero tagline, about text, or role/project stories).
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+cp .env.local.example .env.local   # add ELEVENLABS_API_KEY
+npm run voices                     # list voices, then set ELEVENLABS_VOICE_ID
+npm run generate-audio             # writes public/audio/**.mp3 + .json
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Branching and deploys
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Feature branches come off `staging` and go back into it through a PR. Merging deploys to the persistent staging URL.
+- Once a change is verified on staging, a promotion PR from `staging` into `main` deploys it to production at andrewjoji.com.
+- Every other branch or PR gets its own Vercel preview URL.

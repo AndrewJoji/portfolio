@@ -35,7 +35,7 @@ export function StoryDataSnapshotBlock({ data }: { data: StoryDataSnapshot }) {
   return (
     <div className="my-10 flex max-w-3xl flex-col gap-8">
       <div>
-        <h2 className="font-serif text-2xl italic leading-snug sm:text-3xl">{data.heading}</h2>
+        <h2 className="text-2xl font-semibold leading-snug tracking-tight sm:text-3xl">{data.heading}</h2>
         {data.intro ? (
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{data.intro}</p>
         ) : null}
@@ -124,7 +124,7 @@ export function StoryDataSnapshotBlock({ data }: { data: StoryDataSnapshot }) {
         </p>
       </div>
 
-      <div className="rounded-2xl border-l-4 border-accent bg-panel py-6 pr-8 pl-6">
+      <div className="rounded-2xl border border-border border-l-4 border-l-accent bg-card shadow-card py-6 pr-8 pl-6">
         <div className="mb-2 text-xs font-medium tracking-[0.12em] text-muted uppercase">
           Key insight
         </div>

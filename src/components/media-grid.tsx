@@ -72,8 +72,8 @@ export function MediaGrid({ heading, media }: { heading?: string; media: Gallery
             onClick={() => selectCategory(null)}
             className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
               activeCategory === null
-                ? "bg-accent text-background"
-                : "bg-card text-muted hover:text-foreground"
+                ? "bg-accent text-accent-foreground"
+                : "border border-border bg-card text-muted hover:text-foreground"
             }`}
           >
             All ({media.length})
@@ -85,8 +85,8 @@ export function MediaGrid({ heading, media }: { heading?: string; media: Gallery
               onClick={() => selectCategory(category)}
               className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
                 activeCategory === category
-                  ? "bg-accent text-background"
-                  : "bg-card text-muted hover:text-foreground"
+                  ? "bg-accent text-accent-foreground"
+                  : "border border-border bg-card text-muted hover:text-foreground"
               }`}
             >
               {category} ({media.filter((m) => m.category === category).length})

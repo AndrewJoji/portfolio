@@ -18,7 +18,7 @@ const FOLLOW_ALTITUDE = 1.3;
 function buildPlane() {
   const group = new THREE.Group();
   const bodyMaterial = new THREE.MeshLambertMaterial({ color: 0xfdf6ec });
-  const accentMaterial = new THREE.MeshLambertMaterial({ color: 0xc2542a });
+  const accentMaterial = new THREE.MeshLambertMaterial({ color: 0x8e83ff });
 
   const fuselage = new THREE.Mesh(new THREE.CapsuleGeometry(0.22, 1.3, 4, 10), bodyMaterial);
   group.add(fuselage);
@@ -172,7 +172,7 @@ export function TravelGlobe() {
             return `${loc.label} — ${loc.years}`;
           }}
           pointColor={(d) =>
-            (d as TravelLocation).id === active.id ? "#c2542a" : "#e8c9b0"
+            (d as TravelLocation).id === active.id ? "#8e83ff" : "#dcd8ff"
           }
           pointAltitude={0.01}
           pointRadius={0.45}
@@ -181,7 +181,7 @@ export function TravelGlobe() {
             if (idx !== -1) jumpToStop(idx);
           }}
           arcsData={routeArcs}
-          arcColor={() => "rgba(194, 84, 42, 0.55)"}
+          arcColor={() => "rgba(142, 131, 255, 0.75)"}
           arcStroke={0.4}
           arcDashLength={0.4}
           arcDashGap={0.2}
