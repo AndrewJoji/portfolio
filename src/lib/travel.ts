@@ -40,7 +40,8 @@ export const travelLocations: TravelLocation[] = [
     years: "2010 – 2022",
     lat: 25.2854,
     lng: 51.531,
-    description: "Doha -- most of my childhood and adolescence.",
+    description:
+      "Doha -- most of my childhood and adolescence, and where I did my IGCSEs and A-Levels.",
   },
   {
     id: "vancouver",

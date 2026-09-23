@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import type { MediaItem } from "@/lib/media";
+import { useSwipe } from "@/lib/use-swipe";
 
 function Chevron({ direction }: { direction: "left" | "right" }) {
   const d = direction === "left" ? "M15 18l-6-6 6-6" : "M9 6l6 6-6 6";
@@ -38,6 +39,9 @@ export function MediaCarousel({
   objectFit?: "cover" | "contain";
 }) {
   const [index, setIndex] = useState(0);
+  const goPrev = () => setIndex((i) => (i - 1 + media.length) % media.length);
+  const goNext = () => setIndex((i) => (i + 1) % media.length);
+  const swipe = useSwipe(goPrev, goNext);
 
   if (media.length === 0) {
     return (
@@ -51,13 +55,15 @@ export function MediaCarousel({
   }
 
   const current = media[index];
-  const goPrev = () => setIndex((i) => (i - 1 + media.length) % media.length);
-  const goNext = () => setIndex((i) => (i + 1) % media.length);
   const caption = captionFor(current);
 
   return (
     <div>
-      <div style={{ aspectRatio }} className="relative overflow-hidden rounded-2xl bg-card">
+      <div
+        style={{ aspectRatio }}
+        className="relative overflow-hidden rounded-2xl bg-card"
+        {...(media.length > 1 ? swipe : {})}
+      >
         {current.type === "youtube" ? (
           <iframe
             src={`https://www.youtube.com/embed/${current.youtubeId}${current.start ? `?start=${current.start}` : ""}`}

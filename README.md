@@ -20,15 +20,17 @@ The audio and word timings are **pre-generated** by a local script and committed
 ### Night mode
 A toggle in the nav switches between light and dark themes. The site follows your system setting until you choose one, and then remembers your choice. A small inline script applies the theme before the first paint, so the page never flashes the wrong theme on load.
 
-### Interactive travel globe
-A 3D globe (`react-globe.gl` + three.js) traces where I've lived, from South Africa to Kerala, Saudi Arabia, Qatar, and Vancouver. A small plane flies the route. Use the timeline slider or click a pin to follow the story. The globe only loads when it scrolls into view to keep the first page load light.
+### Travel globe
+A 3D globe (`react-globe.gl` + three.js) traces where I've lived, from South Africa to Kerala, Saudi Arabia, Qatar, and Vancouver, with animated arcs along the route. It spins slowly on its own so every stop comes into view, and a numbered legend below lists each place. It isn't draggable or zoomable, so it's something to watch rather than operate, and it never grabs the page's scroll or touch gestures. It stops spinning for visitors who have reduced motion turned on, and it only loads when it scrolls into view to keep the first page load light.
 
 ### Story pages for roles and projects
 Each experience and project has its own page built from structured content in `src/lib/`. A story can mix:
 - narrative sections, pull quotes, and key/value "properties" blocks
 - SVG architecture diagrams (theme-aware, redrawn in code rather than exported as images)
 - real data snapshots (e.g. the schema and price comparison from the wholesale pricing pipeline)
-- embedded YouTube videos, photo carousels, and a categorized photo gallery with a lightbox (e.g. film behind-the-scenes)
+- embedded YouTube videos, photo carousels, and a categorized photo gallery with a full-screen lightbox (e.g. film behind-the-scenes)
+
+Carousels and the lightbox can be browsed with the on-screen arrows or by swiping on touch screens. The lightbox also supports the ← / → keys and Esc, and the page behind it stays put while it's open.
 
 ### Drop-in media
 Photos and videos placed in `public/projects/<slug>/` or `public/experience/<slug>/` are picked up automatically at build time. A numeric filename prefix (e.g. `01-`) sets the order, and the rest of the filename becomes the caption.
