@@ -10,13 +10,14 @@ export const metadata: Metadata = {
   description: "Things I find interesting, and the books I'm reading.",
 };
 
-const shelves: { status: BookStatus; label: string }[] = [
-  { status: "reading", label: "Currently reading" },
-  { status: "finished", label: "Finished" },
-];
+const statusLabel: Record<BookStatus, string> = {
+  reading: "Reading now",
+  finished: "Finished",
+};
 
 export default function BlogPage() {
   const posts = sortedPosts();
+  const shelf = [...books].sort((a, b) => Number(b.status === "reading") - Number(a.status === "reading"));
 
   return (
     <div className="flex flex-1 flex-col">
@@ -74,34 +75,26 @@ export default function BlogPage() {
               Books coming soon.
             </div>
           ) : (
-            shelves.map(({ status, label }) => {
-              const shelf = books.filter((book) => book.status === status);
-              if (shelf.length === 0) return null;
-              return (
-                <div key={status} className="mb-8">
-                  <h3 className="mb-3 text-sm font-medium text-muted">{label}</h3>
-                  <ul className="grid grid-cols-2 gap-x-5 gap-y-7 sm:grid-cols-3 lg:grid-cols-4">
-                    {shelf.map((book) => (
-                      <li key={book.slug}>
-                        <Link href={`/blog/books/${book.slug}`} className="group flex flex-col items-center gap-3">
-                          <div className="w-full transition-transform duration-200 group-hover:-translate-y-1">
-                            <BookCover
-                              src={bookCoverSrc(book)}
-                              title={book.title}
-                              author={book.author}
-                              sizes="(min-width: 1024px) 180px, (min-width: 640px) 30vw, 45vw"
-                            />
-                          </div>
-                          <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-medium text-accent">
-                            {book.category}
-                          </span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })
+            <ul className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
+              {shelf.map((book) => (
+                <li key={book.slug}>
+                  <Link href={`/blog/books/${book.slug}`} className="group flex flex-col items-center gap-2">
+                    <div className="mb-1 w-full transition-transform duration-200 group-hover:-translate-y-1">
+                      <BookCover
+                        src={bookCoverSrc(book)}
+                        title={book.title}
+                        author={book.author}
+                        sizes="(min-width: 1024px) 180px, (min-width: 640px) 30vw, 45vw"
+                      />
+                    </div>
+                    <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-medium text-accent">
+                      {book.category}
+                    </span>
+                    <span className="text-xs text-muted">{statusLabel[book.status]}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           )}
         </section>
       </main>
