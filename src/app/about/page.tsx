@@ -24,9 +24,14 @@ export default function AboutPage() {
 
         <div className="mt-10 flex max-w-2xl flex-col gap-4 text-lg leading-relaxed text-muted">
           <p>
-            Moving between countries that often meant starting over &mdash;
-            new schools, new friend groups, new ways of doing things. That
-            constant resetting shaped how I see the world: I value diversity
+            Growing up between countries often meant starting over &mdash;
+            new schools, new friend groups, new ways of doing things. It also
+            meant &ldquo;home&rdquo; was never a simple answer. I always felt
+            a little out of place wherever I was, because I was never
+            completely from there.
+          </p>
+          <p>
+            That constant resetting shaped how I see the world: I value diversity
             of thought and experience as a real asset, not just a nice idea
             &mdash; it&rsquo;s easier to get to a good answer when you&rsquo;ve
             seen a problem from more than one angle. I&rsquo;m a lifelong
