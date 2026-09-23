@@ -45,7 +45,7 @@ export function StoryBody({
       {story.map((section, i) => (
         <div key={i}>
           {section.heading ? (
-            <h2 className="mt-14 max-w-2xl font-serif text-2xl italic leading-snug sm:text-3xl">
+            <h2 className="mt-14 max-w-2xl text-2xl font-semibold leading-snug tracking-tight sm:text-3xl">
               <ReadableText
                 blockIndex={sectionBlocks[i].headingIndex!}
                 fallback={section.heading}

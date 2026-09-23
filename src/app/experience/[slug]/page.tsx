@@ -50,7 +50,7 @@ export default async function ExperiencePage(
         <Link href="/#work" className="text-sm font-medium text-accent">
           &larr; Back to home
         </Link>
-        <h1 className="mt-6 font-serif text-4xl italic leading-tight sm:text-5xl">
+        <h1 className="mt-6 text-4xl font-semibold leading-tight tracking-[-0.03em] text-balance sm:text-5xl">
           {entry.title}
         </h1>
         <div className="mt-3 text-muted">

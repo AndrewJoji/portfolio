@@ -1,14 +1,12 @@
 export function Education() {
   return (
-    <section className="border-t border-border px-8 py-16 sm:px-20 sm:py-24">
+    <section className="px-8 py-16 sm:px-20 sm:py-24">
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
         <div className="lg:col-span-3">
-          <div className="text-xs font-medium tracking-[0.12em] text-muted uppercase">
-            Education
-          </div>
+          <h2 className="text-2xl font-semibold tracking-tight">Education</h2>
         </div>
-        <div className="lg:col-span-8">
-          <div className="text-lg font-semibold">
+        <div className="rounded-2xl border border-border bg-card p-6 shadow-card sm:p-8 lg:col-span-8">
+          <div className="text-lg font-semibold tracking-tight">
             University of British Columbia
           </div>
           <div className="mt-1 text-sm text-muted">

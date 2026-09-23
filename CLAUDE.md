@@ -27,6 +27,8 @@
 
 All three also run in CI on every PR (see `.github/workflows/ci.yml`) and must pass before merge.
 
+If a change adds, removes, or meaningfully changes a user-facing feature or design choice, update `README.md` (Features / Design sections) in the same PR.
+
 ## Content notes
 - Resume/experience facts (dates, figures, employers) are the source of truth in the user's master resume — do not invent or alter factual details about work history, metrics, or project descriptions.
 - Site copy should stay consistent with the positioning: cross-disciplinary background (CS + film line producer + founder + volunteer work) framed as range and adaptability.

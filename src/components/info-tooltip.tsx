@@ -48,7 +48,7 @@ export function InfoTooltip({ children }: { children: ReactNode }) {
         <InfoIcon />
       </button>
       {open ? (
-        <div className="absolute bottom-full left-1/2 z-10 mb-2 w-64 -translate-x-1/2 rounded-xl bg-card p-3.5 text-xs leading-relaxed text-muted shadow-[0_10px_28px_-16px_oklch(35%_0.04_50_/_0.6)]">
+        <div className="absolute bottom-full left-1/2 z-10 mb-2 w-64 -translate-x-1/2 rounded-xl border border-border bg-card p-3.5 text-xs leading-relaxed text-muted shadow-card">
           {children}
         </div>
       ) : null}
