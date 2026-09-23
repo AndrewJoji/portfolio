@@ -35,6 +35,9 @@ Carousels and the lightbox can be browsed with the on-screen arrows or by swipin
 ### Workshop
 A `/workshop` page for small tools I'm building for my own life, grouped by area. Right now that's Offcut (woodworking plans from scans of awkward spaces), fishing tools (a setup visualizer, salmon species ID, and a regulations quiz), and a wall-mounted iPad task board. Each tool is one entry in `src/lib/workshop.ts` with a status of idea, building or live. Adding an `href` turns its card into a link once the tool exists.
 
+### Blog
+A `/blog` page with two parts: **Posts**, for things I find interesting, and a **Bookshelf** of what I'm reading and have finished, each with an optional short takeaway. Posts live in `src/lib/blog.ts` and use the same story sections as the role and project pages, so a post can mix text with photos, galleries, YouTube videos, quotes and links. A book can link to a full post with `postSlug`.
+
 ### Drop-in media
 Photos and videos placed in `public/projects/<slug>/` or `public/experience/<slug>/` are picked up automatically at build time. A numeric filename prefix (e.g. `01-`) sets the order, and the rest of the filename becomes the caption.
 
