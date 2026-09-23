@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BookCover } from "@/components/book-cover";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
-import { books, formatPostDate, sortedPosts, type BookStatus } from "@/lib/blog";
+import { bookCoverSrc, books, formatPostDate, sortedPosts, type BookStatus } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Blog — Andrew Joji",
@@ -79,34 +80,22 @@ export default function BlogPage() {
               return (
                 <div key={status} className="mb-8">
                   <h3 className="mb-3 text-sm font-medium text-muted">{label}</h3>
-                  <ul className="divide-y divide-border rounded-2xl border border-border bg-card shadow-card">
+                  <ul className="grid grid-cols-2 gap-x-5 gap-y-7 sm:grid-cols-3 lg:grid-cols-4">
                     {shelf.map((book) => (
-                      <li key={book.title} className="flex flex-col gap-1 px-6 py-4">
-                        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                          <div>
-                            <span className="font-semibold tracking-tight">
-                              {book.link ? (
-                                <a href={book.link} target="_blank" rel="noreferrer" className="hover:text-accent">
-                                  {book.title}
-                                </a>
-                              ) : (
-                                book.title
-                              )}
-                            </span>
-                            <span className="text-muted"> &middot; {book.author}</span>
+                      <li key={book.slug}>
+                        <Link href={`/blog/books/${book.slug}`} className="group flex flex-col items-center gap-3">
+                          <div className="w-full transition-transform duration-200 group-hover:-translate-y-1">
+                            <BookCover
+                              src={bookCoverSrc(book)}
+                              title={book.title}
+                              author={book.author}
+                              sizes="(min-width: 1024px) 180px, (min-width: 640px) 30vw, 45vw"
+                            />
                           </div>
-                          {book.finished ? (
-                            <span className="text-xs text-muted tabular-nums">{book.finished}</span>
-                          ) : null}
-                        </div>
-                        {book.take ? (
-                          <p className="text-sm leading-relaxed text-muted">{book.take}</p>
-                        ) : null}
-                        {book.postSlug ? (
-                          <Link href={`/blog/${book.postSlug}`} className="text-sm font-medium text-accent">
-                            Read my notes &rarr;
-                          </Link>
-                        ) : null}
+                          <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-medium text-accent">
+                            {book.category}
+                          </span>
+                        </Link>
                       </li>
                     ))}
                   </ul>
