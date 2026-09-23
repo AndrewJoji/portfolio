@@ -16,7 +16,8 @@ export const travelLocations: TravelLocation[] = [
     years: "Born here",
     lat: -26.2041,
     lng: 28.0473, // Johannesburg (representative -- no specific city given)
-    description: "Where the story starts.",
+    description:
+      "Where the story starts. That family connection makes the mission and work of Education without Borders (EwB) more meaningful to me, and closely aligned with my values and background.",
   },
   {
     id: "kerala",
@@ -37,7 +38,7 @@ export const travelLocations: TravelLocation[] = [
   {
     id: "qatar",
     label: "Qatar",
-    years: "2010 – 2022",
+    years: "2010 – 2021",
     lat: 25.2854,
     lng: 51.531,
     description:

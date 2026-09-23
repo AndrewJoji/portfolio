@@ -26,7 +26,7 @@ export default function AboutPage() {
           <p>
             I was born in South Africa, into a family from Kerala, in South
             India. My childhood moved with my family&rsquo;s work: Saudi
-            Arabia from 2004 to 2010, then Qatar from 2010 to 2022 &mdash;
+            Arabia from 2004 to 2010, then Qatar from 2010 to 2021 &mdash;
             most of my adolescence happened in Doha. In 2021 I moved to
             Vancouver, BC to study Computer Science at the University of
             British Columbia, and it&rsquo;s where I&rsquo;m based now.
